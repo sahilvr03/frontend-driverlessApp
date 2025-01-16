@@ -1,5 +1,4 @@
 "use client";
-import ProtectedRoute from "@/app/protectedRoute/protectedRoute";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
@@ -8,7 +7,7 @@ import { useUser } from "../../context/UserContext"; // Assuming you have user c
 import { db } from '../../firebaseConfig/auth'; // Adjust according to your project structure
 import { doc, getDoc } from "firebase/firestore"; // Firebase Firestore functions
 
-export default function AdminSidebar({ handleViewChange }) {
+export default function AdminSidebar({  }) {
   const { user } = useUser(); // Assuming user context provides user data
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
