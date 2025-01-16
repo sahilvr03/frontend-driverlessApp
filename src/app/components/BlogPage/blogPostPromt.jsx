@@ -4,8 +4,7 @@ import { CameraIcon } from '@heroicons/react/outline';
 import { useUser } from "../../context/UserContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from '../../firebaseConfig/auth';
-import NotiButton from "../notificaionButton/page";
-
+import Image from "next/image";
 export default function BlogPostPrompt() {
     const { user } = useUser();
     const [userProfile, setUserProfile] = useState(null);
@@ -74,7 +73,7 @@ export default function BlogPostPrompt() {
         <div className="flex items-center border border-gray-300 rounded-lg p-3 space-x-4 shadow-sm">
             <div className="text-center">
                 {userProfile ? (
-                    <img
+                    <Image
                         src={userProfile.profilePicUrl || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"}
                         alt="User Icon"
                         className="w-10 h-10 rounded-full object-cover"

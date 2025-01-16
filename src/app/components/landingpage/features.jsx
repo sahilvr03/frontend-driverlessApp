@@ -35,7 +35,7 @@ const Featured = () => {
                 </div>
                 <h3 className="text-3xl font-semibold text-white">A growing company</h3>
                 <p className="mt-4 text-lg leading-relaxed text-white">
-                  The extension comes with three pre-built pages to help you get started faster. You can change the text and images and you're good to go.
+                  The extension comes with three pre-built pages to help you get started faster. You can change the text and images and your good to go.
                 </p>
 
                 {/* Features List */}

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import Image from "next/image";
 
 const Achievements = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -181,7 +182,7 @@ const Achievements = () => {
                 key={index}
                 className="max-w-[300px] bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow flex-shrink-0"
               >
-                <img
+                <Image
                   src={achievement.image}
                   alt={`${achievement.title} Image`}
                   className="w-full h-40 object-cover rounded-md mb-4"
@@ -236,7 +237,7 @@ const Achievements = () => {
                       isVisible ? animationClasses[index] : ""
                     }`}
                   >
-                    <img
+                    <Image
                       src={achievement.image}
                       alt={`${achievement.title} Image`}
                       className="w-full h-40 object-cover rounded-md mb-4"

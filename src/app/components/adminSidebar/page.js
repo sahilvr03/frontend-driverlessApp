@@ -53,7 +53,7 @@ export default function AdminSidebar({ handleViewChange }) {
         <div className="mb-8 text-center">
           {userProfile ? (
             <>
-              <img
+              <Image
                 src={userProfile.profilePicUrl || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"}
                 alt="User Icon"
                 className="w-24 h-24 rounded-full border-2 object-cover border-white"

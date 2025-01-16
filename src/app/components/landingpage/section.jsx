@@ -1,5 +1,5 @@
 // import Image from 'next/image';
-// import carImage from '../assets/img/bg.webp'; // Ensure this path is correct
+// import carImage from '../assets/Image/bg.webp'; // Ensure this path is correct
 
 // const Section = () => {
 //   return (

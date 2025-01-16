@@ -1,4 +1,5 @@
 import { FaUncharted } from "react-icons/fa";
+import Image from "next/image";
 
 const Services = () => (
   <section className="mt-40">
@@ -60,12 +61,12 @@ const Services = () => (
             Working with us is a pleasure
           </h3>
           <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700">
-            Don't let your users guess by attaching tooltips and popovers
+            Dont let your users guess by attaching tooltips and popovers
             to any element. Just make sure you enable them first via JavaScript.
           </p>
           <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-700">
             The kit comes with three pre-built pages to help you get started faster. You can change the text and images and
-            you're good to go. Just make sure you enable them first via JavaScript.
+            youre good to go. Just make sure you enable them first via JavaScript.
           </p>
           <a
             href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
@@ -81,7 +82,7 @@ const Services = () => (
             className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-500"
             style={{ height: "80vh", overflow: "hidden" }}
           >
-            <img
+            <Image
               alt="..."
               src="/images/picture1.jpeg"
               className="w-full align-middle rounded-t-lg object-cover h-full"

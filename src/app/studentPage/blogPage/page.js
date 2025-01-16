@@ -323,7 +323,7 @@ const handleCommentChange = (id, text) => {
                     >
                       {/* Blog Content */}
                       <div className="mb-4">
-                        <img
+                        <Image
                           src={constructImageUrl(blog.image_url)}
                           alt={blog.title}
                           className="w-full object-contain rounded-lg mb-2"
@@ -450,7 +450,7 @@ const handleCommentChange = (id, text) => {
                       key={blog.id}
                       className="border border-gray-300 rounded-lg p-2 flex items-start"
                     >
-                      <img
+                      <Image
                         src={constructImageUrl(blog.image_url)}
                         alt={blog.title}
                         className="w-16 h-16 object-cover rounded-md mr-3"
