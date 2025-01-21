@@ -186,6 +186,8 @@ const Achievements = () => {
                   src={achievement.image}
                   alt={`${achievement.title} Image`}
                   className="w-full h-40 object-cover rounded-md mb-4"
+                  height={92}
+                  width={82}
                 />
                 <h3 className="text-xl font-semibold mb-4">
                   {achievement.title}
@@ -241,6 +243,8 @@ const Achievements = () => {
                       src={achievement.image}
                       alt={`${achievement.title} Image`}
                       className="w-full h-40 object-cover rounded-md mb-4"
+                        height={92}
+                  width={82}
                     />
                     <h3 className="text-xl font-semibold mb-4">
                       {achievement.title}

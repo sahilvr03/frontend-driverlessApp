@@ -86,6 +86,8 @@ const Services = () => (
               alt="..."
               src="/images/picture1.jpeg"
               className="w-full align-middle rounded-t-lg object-cover h-full"
+              height={92}
+              width={82}
             />
             <blockquote
               className="relative p-4 mb-4"
