@@ -45,7 +45,7 @@ export default function DataFormatting() {
                                 ✨
                             </span>
                             <h3>Customization</h3>
-                            <p>Tailored solutions to match your project's specific needs.</p>
+                            <p>Tailored solutions to match your projects specific needs.</p>
                         </div>
                         <div style={styles.infoCard}>
                             <span role="img" aria-label="integration" style={styles.infoIcon}>

@@ -22,7 +22,7 @@ export default function Home() {
                         </div>
                         <h2 style={styles.updatedHeading}>AI-Driven Data Annotation</h2>
                         <p style={styles.updatedDescription}>
-                            Harness the power of automation and human expertise to create high-quality, actionable datasets tailored to your AI's needs.
+                            Harness the power of automation and human expertise to create high-quality, actionable datasets tailored to your AI needs.
                         </p>
                     </div>
                 </div>
