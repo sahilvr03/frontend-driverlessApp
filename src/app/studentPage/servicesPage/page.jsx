@@ -28,12 +28,12 @@ export default function Services() {
             icon="🧹"
             link="/services/data-cleaning"
           />
-          <ServiceCard
+          {/* <ServiceCard
             title="Data Formatting"
             description="Transform your raw data into structured formats that are easy to use and understand. Our formatting services help you organize your data efficiently."
             icon="🗃️"
             link="/services/data-formatting"
-          />
+          /> */}
           <ServiceCard
             title="Raw Data Provisioning"
             description="Access high-quality raw datasets tailored to your industry. We provide reliable data sources to help you kickstart your projects with valuable insights."

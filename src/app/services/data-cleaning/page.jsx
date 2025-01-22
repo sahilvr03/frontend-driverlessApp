@@ -50,12 +50,17 @@ export default function DataCleaningServices() {
                         Accurate and reliable data is the backbone of informed decision-making. Our data cleaning services ensure your data is error-free, consistent, and ready for analysis. From deduplication to standardization, we help businesses turn raw data into actionable insights.
                     </p>
                     <motion.button
-                        className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition-all"
+                        className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-all"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
+                        onClick={() => {
+                            const targetDiv = document.getElementById("get-service");
+                            targetDiv?.scrollIntoView({ behavior: "smooth" });
+                        }}
                     >
                         Get Services
                     </motion.button>
+
                 </motion.div>
                 <motion.div
                     className="md:w-1/2  mt-8 md:mt-0"
@@ -119,7 +124,7 @@ export default function DataCleaningServices() {
             </section>
 
             {/* Types of Data Cleaning Services */}
-            <section className="bg-[#1c2536] px-6 py-12 md:px-16 text-white ">
+            <section className="bg-[#1c2536] px-6 py-12 md:px-16 text-white " id='get-service'>
                 <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 ">
                     Types of Data Cleaning Services
                 </h2>

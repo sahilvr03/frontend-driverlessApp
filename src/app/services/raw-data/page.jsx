@@ -1,209 +1,205 @@
-'use client'; 
-import React from 'react';
+'use client';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { useState } from 'react';
+import MainProductList from "@/app/components/ProductpageComponents/MainProductList/page";
+import ProtectedRoute from "@/app/protectedRoute/protectedRoute";
 
-export default function RawDataProvisioning() {
+const ProductPage = () => {
+    const [activeTab, setActiveTab] = useState('image');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
-        <div style={styles.pageContainer}>
-            {/* Header */}
-            <header style={styles.header}>
-                <h1 style={styles.heading}>Raw Data Provisioning Services</h1>
-                <p style={styles.subheading}>
-                    Access accurate and reliable raw data to power your insights and decisions.
-                </p>
-            </header>
-
-            {/* Main Content */}
-            <main style={styles.main}>
-                
-
-                {/* Smart Data Provisioning Card */}
-                <div style={styles.animationContainer}>
-                    <div className="floating-icon" style={styles.updatedCard}>
-                        <div style={styles.iconWrapper}>
-                            <span role="img" aria-label="provisioning" style={styles.largeIcon}>
-                                📂
-                            </span>
+        <ProtectedRoute allowedRoles={['user', 'admin']}>
+            <div className="bg-gray-50 text-gray-800">
+                {/* Modal */}
+                {isModalOpen && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] md:w-[40%]">
+                            <h2 className="text-xl font-semibold mb-4 text-center">Get Services</h2>
+                            <p className="mb-4 text-sm text-gray-600 text-center">
+                                Fill out the form below to get started.
+                            </p>
+                            <form className="grid grid-cols-1 gap-4 text-sm">
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label htmlFor="firstName" className="font-medium">First Name</label>
+                                        <input
+                                            id="firstName"
+                                            type="text"
+                                            className="mt-1 w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                            placeholder="First Name"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="lastName" className="font-medium">Last Name</label>
+                                        <input
+                                            id="lastName"
+                                            type="text"
+                                            className="mt-1 w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                            placeholder="Last Name"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label htmlFor="email" className="font-medium">Email</label>
+                                        <input
+                                            id="email"
+                                            type="email"
+                                            className="mt-1 w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                            placeholder="Email Address"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="contactNumber" className="font-medium">Contact Number</label>
+                                        <input
+                                            id="contactNumber"
+                                            type="tel"
+                                            inputMode="numeric"
+                                            pattern="[+]{1}[0-9]{11,14}"
+                                            className="mt-1 w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                            placeholder="Phone Number"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label htmlFor="organization" className="font-medium">Organization</label>
+                                        <input
+                                            id="organization"
+                                            type="text"
+                                            className="mt-1 w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                            placeholder="Organization Name"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="url" className="font-medium">URL</label>
+                                        <input
+                                            id="url"
+                                            type="url"
+                                            className="mt-1 w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                            placeholder="Website URL"
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor="purpose" className="font-medium">Purpose</label>
+                                    <textarea
+                                        id="purpose"
+                                        className="mt-1 w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                        placeholder="State your purpose"
+                                        rows="3"
+                                        required
+                                    ></textarea>
+                                </div>
+                                <div className="flex gap-4">
+                                    <button
+                                        type="submit"
+                                        className="w-1/2 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-all"
+                                    >
+                                        Submit
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="w-1/2 py-2 text-white bg-gray-400 rounded-md hover:bg-gray-500 transition-all"
+                                        onClick={() => setIsModalOpen(false)}
+                                    >
+                                        Close
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                        <h2 style={styles.updatedHeading}>Smart Data Provisioning</h2>
-                        <p style={styles.updatedDescription}>
-                            Access clean, raw datasets prepared to accelerate your analytical and AI pipelines.
-                        </p>
                     </div>
+                )}
+
+                {/* Hero Section */}
+                <section className="flex flex-col md:flex-row items-center justify-between px-6 py-12 md:px-16 bg-blue-100">
+                    <motion.div
+                        className="md:w-1/2 text-center md:text-left"
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <h1 className="text-4xl md:text-5xl font-bold mb-6">Raw data text goes here</h1>
+                        <p className="text-lg md:text-xl mb-6">
+                            In today’s rapidly evolving landscape of artificial intelligence and machine learning, high-quality data serves as the foundation for building efficient and reliable models. 
+                            Our comprehensive data annotation services empower your AI initiatives with accuracy and precision.
+                        </p>
+                        <motion.button
+                            className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-all"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => {
+                                const targetDiv = document.getElementById("get-service");
+                                targetDiv?.scrollIntoView({ behavior: "smooth" });
+                            }}
+                        >
+                            Get Services
+                        </motion.button>
+                    </motion.div>
+                    <motion.div
+                        className="md:w-1/2 mt-8 md:mt-0"
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <Image
+                            width={1000}
+                            height={1000}
+                            src="/images/car4.png"
+                            alt="Data Annotation"
+                            className="w-full rounded-lg shadow-lg"
+                        />
+                    </motion.div>
+                </section>
+
+                {/* Main Content */}
+                <div className="flex">
+                    <main className="flex-1 p-6">
+                        <div className="flex flex-wrap justify-between items-center mb-6">
+                            <div className="flex space-x-4">
+                                <select className="border border-gray-300 rounded-md px-4 py-2">
+                                    <option>Type</option>
+                                </select>
+                                <select className="border border-gray-300 rounded-md px-4 py-2">
+                                    <option>Topic</option>
+                                </select>
+                                <select className="border border-gray-300 rounded-md px-4 py-2">
+                                    <option>Year</option>
+                                </select>
+                            </div>
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    placeholder="search here ..."
+                                    className="border border-gray-300 rounded-md px-4 py-2 pr-10"
+                                />
+                                <button className="absolute right-2 top-2 text-green-500">🔍</button>
+                            </div>
+                        </div>
+                        <MainProductList />
+                    </main>
                 </div>
 
-                {/* Benefits Section */}
-                <section style={styles.infoSection}>
-                    <h2 style={styles.sectionHeading}>What Makes Us Stand Out?</h2>
-                    <div style={styles.infoContainer}>
-                        <div style={styles.infoCard}>
-                            <span role="img" aria-label="quality" style={styles.infoIcon}>
-                                🏆
-                            </span>
-                            <h3>Data Quality</h3>
-                            <p>Guaranteed accuracy and reliability for your projects.</p>
-                        </div>
-                        <div style={styles.infoCard}>
-                            <span role="img" aria-label="customization" style={styles.infoIcon}>
-                                ⚙️
-                            </span>
-                            <h3>Custom Datasets</h3>
-                            <p>Tailored raw data aligned with your unique needs.</p>
-                        </div>
-                        <div style={styles.infoCard}>
-                            <span role="img" aria-label="scalability" style={styles.infoIcon}>
-                                📈
-                            </span>
-                            <h3>Scalability</h3>
-                            <p>Provision datasets at scale for diverse applications.</p>
-                        </div>
-                    </div>
+                {/* Data Cleaning Services Section */}
+                <section className="bg-[#1c2536] px-6 py-12 md:px-16 text-white" id="get-service">
+                    <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Raw data services section</h2>
+                    <p className="text-center text-gray-400 mb-8">
+                        a b c d e f g h i 
+                    </p>
                 </section>
-            </main>
-
-            {/* Footer */}
-            <footer style={styles.footer}>
-                <p>&copy; {new Date().getFullYear()} DataProVisioning. All Rights Reserved.</p>
-            </footer>
-
-            {/* CSS Animation */}
-            <style jsx>{`
-                .floating-icon {
-                    animation: float 3s infinite ease-in-out;
-                }
-                @keyframes float {
-                    0% {
-                        transform: translateY(0);
-                    }
-                    50% {
-                        transform: translateY(-10px);
-                    }
-                    100% {
-                        transform: translateY(0);
-                    }
-                }
-            `}</style>
-        </div>
+                <section>
+                    extra? 
+                  </section>
+            </div>
+        </ProtectedRoute>
     );
-}
-
-const styles = {
-    pageContainer: {
-        fontFamily: 'Arial, sans-serif',
-        lineHeight: '1.6',
-        backgroundColor: '#f9fbfd',
-        color: '#333',
-        margin: '0',
-        padding: '0',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-    },
-    header: {
-        backgroundColor: '#1b5e20',
-        color: '#ffffff',
-        textAlign: 'center',
-        padding: '40px 20px',
-    },
-    heading: {
-        fontSize: '2.5rem',
-        fontWeight: 'bold',
-        margin: '0',
-    },
-    subheading: {
-        marginTop: '10px',
-        fontSize: '1.2rem',
-        opacity: '0.9',
-    },
-    main: {
-        padding: '20px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        flex: '1',
-    },
-    animationContainer: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: '40px',
-    },
-    updatedCard: {
-        backgroundColor: '#e8f5e9',
-        borderRadius: '12px',
-        boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
-        textAlign: 'center',
-        padding: '30px',
-        width: '350px',
-        position: 'relative',
-        overflow: 'hidden',
-    },
-    iconWrapper: {
-        backgroundColor: '#ffffff',
-        borderRadius: '50%',
-        width: '80px',
-        height: '80px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: '0 auto 20px auto',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    },
-    largeIcon: {
-        fontSize: '2.5rem',
-        color: '#43a047',
-    },
-    updatedHeading: {
-        fontSize: '1.8rem',
-        fontWeight: 'bold',
-        color: '#2e7d32',
-        marginBottom: '15px',
-    },
-    updatedDescription: {
-        fontSize: '1rem',
-        color: '#2e7d32',
-        lineHeight: '1.5',
-        marginBottom: '20px',
-    },
-    learnMoreButton: {
-        backgroundColor: '#43a047',
-        color: '#ffffff',
-        border: 'none',
-        borderRadius: '8px',
-        padding: '10px 20px',
-        fontSize: '1rem',
-        cursor: 'pointer',
-        transition: 'all 0.3s ease',
-    },
-    infoSection: {
-        textAlign: 'center',
-    },
-    sectionHeading: {
-        fontSize: '2rem',
-        marginBottom: '20px',
-    },
-    infoContainer: {
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '20px',
-        flexWrap: 'wrap',
-    },
-    infoCard: {
-        backgroundColor: '#ffffff',
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        padding: '20px',
-        width: '250px',
-        textAlign: 'center',
-    },
-    infoIcon: {
-        fontSize: '2rem',
-        marginBottom: '10px',
-    },
-    footer: {
-        backgroundColor: '#0d47a1',
-        color: '#ffffff',
-        textAlign: 'center',
-        padding: '10px 0',
-    },
 };
+
+export default ProductPage;
