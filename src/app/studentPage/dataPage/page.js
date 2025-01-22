@@ -15,7 +15,7 @@ const DataPage = () => {
     useEffect(() => {
         const fetchFiles = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:5000/api/data');
+                const response = await fetch('https://vijay90.pythonanywhere.com/api/data');
                 if (!response.ok) throw new Error("Failed to fetch data");
 
                 let data = await response.json();
@@ -77,7 +77,7 @@ const DataItem = ({ item, onPreviewClick }) => (
                 <span>Preview</span>
             </button>
             <a
-                href={`http://127.0.0.1:5000/api/data/download/${item.id}`}
+                href={`https://vijay90.pythonanywhere.com/api/data/download/${item.id}`}
                 className="flex items-center space-x-1 text-green-600 hover:text-green-800"
                 download
             >
