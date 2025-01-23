@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    domains: ['images.unsplash.com', 'vijay90.pythonanywhere.com'],
-  },
+  // images: {
+  //   domains: ['images.unsplash.com', 'vijay90.pythonanywhere.com'],
+  // },
   async headers() {
     return [
       {
         // matching all API routes
-        source: "/api/data/:path*",
+        source: "/api/:path*",
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },
           { key: "Access-Control-Allow-Origin", value: "*" },
