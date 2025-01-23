@@ -60,7 +60,7 @@ export default function Posts() {
   }, []);
 
   const fetchPosts = async () => {
-    const res = await fetch('http://localhost:5000/api/posts');
+    const res = await fetch('https://vijay90.pythonanywhere.com/api/posts');
     const data = await res.json();
     setPosts(data);
   };
@@ -112,14 +112,14 @@ export default function Posts() {
     try {
       if (editingPostId) {
         // Update existing post
-        const updatedPost = await handleFetch(`http://localhost:5000/api/post/${editingPostId}`, 'PUT');
+        const updatedPost = await handleFetch(`https://vijay90.pythonanywhere.com/api/post/${editingPostId}`, 'PUT');
         setMessage('Post updated successfully!');
         setPosts((prevPosts) =>
           prevPosts.map((post) => (post.id === editingPostId ? updatedPost : post))
         );
       } else {
         // Create new post
-        const newPost = await handleFetch('http://localhost:5000/api/post', 'POST');
+        const newPost = await handleFetch('https://vijay90.pythonanywhere.com/api/post', 'POST');
         setMessage('Post created successfully!');
         setPosts((prevPosts) => [...prevPosts, newPost]);
       }
@@ -145,7 +145,7 @@ export default function Posts() {
   };
 
   const handleDelete = async (id) => {
-    const res = await fetch(`http://localhost:5000/api/post/${id}`, {
+    const res = await fetch(`https://vijay90.pythonanywhere.com/api/post/${id}`, {
       method: 'DELETE'
     });
 

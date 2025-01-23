@@ -47,7 +47,7 @@ export default function Dashboard() {
   }, []);
 
   const fetchBlogs = async () => {
-    const res = await fetch('http://localhost:5000/api/blogs');
+    const res = await fetch('https://vijay90.pythonanywhere.com/api/blogs');
     const data = await res.json();
     setBlogs(data);
   };
@@ -57,7 +57,7 @@ export default function Dashboard() {
   }, []);
 
   const fetchPosts = async () => {
-    const res = await fetch('http://localhost:5000/api/posts');
+    const res = await fetch('https://vijay90.pythonanywhere.com/api/posts');
     const data = await res.json();
     setPosts(data);
   };

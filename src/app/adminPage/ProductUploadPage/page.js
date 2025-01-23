@@ -20,7 +20,7 @@ const ProductsPage = () => {
 
 
   const handleDelete = async (id) => {
-    const res = await fetch(`http://localhost:5000/api/product/${id}`, {
+    const res = await fetch(`vijay90.pythonanywhere.com/api/product/${id}`, {
       method: 'DELETE'
     });
 
@@ -56,7 +56,7 @@ const ProductsPage = () => {
     // Fetch all products from Flask API
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/products');
+        const response = await fetch('vijay90.pythonanywhere.com/api/products');
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
@@ -84,7 +84,7 @@ const ProductsPage = () => {
     formData.append('description', description);
 
     try {
-      const response = await fetch('http://localhost:5000/api/product', {
+      const response = await fetch('vijay90.pythonanywhere.com/api/products/upload_product', {
         method: 'POST',
         body: formData,
       });

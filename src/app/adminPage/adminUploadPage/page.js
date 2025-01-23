@@ -13,7 +13,7 @@ const AdminUploadPage = () => {
     const [editingFileId, setEditingFileId] = useState(null);
 
     const fetchFiles = async () => {
-        const response = await fetch("http://127.0.0.1:5000/api/data");
+        const response = await fetch("https://vijay90.pythonanywhere.com/api/data");
         const data = await response.json();
         
         // Sort files by 'created_at' in descending order (latest first)
@@ -66,7 +66,7 @@ const AdminUploadPage = () => {
                 setUploadProgress(0);
             };
 
-            xhr.open("POST", "http://127.0.0.1:5000/api/data/upload", true);
+            xhr.open("POST", "https://vijay90.pythonanywhere.com/api/data/upload", true);
             xhr.send(formData);
         } catch (error) {
             setMessage("Error uploading file");
@@ -74,7 +74,7 @@ const AdminUploadPage = () => {
     };
 
     const handleDelete = async (fileId) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/data/delete/${fileId}`, {
+        const response = await fetch(`https://vijay90.pythonanywhere.com/api/data/delete/${fileId}`, {
             method: 'DELETE',
         });
 
@@ -88,7 +88,7 @@ const AdminUploadPage = () => {
     };
 
     const handleUpdate = async (fileId) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/data/update/${fileId}`, {
+        const response = await fetch(`https://vijay90.pythonanywhere.com/api/data/update/${fileId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -192,7 +192,7 @@ const AdminUploadPage = () => {
                                         >
                                             Delete
                                         </button>
-                                        <a href={`http://127.0.0.1:5000/api/data/download/${uploadedFile.id}`} className="text-green-500 hover:underline">
+                                        <a href={`https://vijay90.pythonanywhere.com/api/data/download/${uploadedFile.id}`} className="text-green-500 hover:underline">
                                             Download
                                         </a>
                                     </div>

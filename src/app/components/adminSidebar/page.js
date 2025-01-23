@@ -7,7 +7,7 @@ import { useUser } from "../../context/UserContext"; // Assuming you have user c
 import { db } from '../../firebaseConfig/auth'; // Adjust according to your project structure
 import { doc, getDoc } from "firebase/firestore"; // Firebase Firestore functions
 
-export default function AdminSidebar({  }) {
+export default function AdminSidebar({  handleViewChange }) {
   const { user } = useUser(); // Assuming user context provides user data
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
@@ -52,11 +52,11 @@ export default function AdminSidebar({  }) {
         <div className="mb-8 text-center">
           {userProfile ? (
             <>
-              <Image
+              {/* <Image
                 src={userProfile.profilePicUrl || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"}
                 alt="User Icon"
                 className="w-24 h-24 rounded-full border-2 object-cover border-white"
-              />
+              /> */}
               <p className="mt-2 text-sm font-semibold">{userProfile.username}</p>
             </>
           ) : (

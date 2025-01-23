@@ -12,7 +12,7 @@ export default function AdminBlogs() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/blogs');
+        const response = await fetch('https://vijay90.pythonanywhere.com/api/blogs');
         const data = await response.json();
         setBlogs(data);
       } catch (error) {
@@ -39,7 +39,7 @@ export default function AdminBlogs() {
 
     // Send blog creation request to Flask backend
     try {
-      const response = await fetch('http://localhost:5000/api/blogs', {
+      const response = await fetch('https://vijay90.pythonanywhere.com/api/blogs', {
         method: 'POST',
         body: formData,
       });
@@ -63,7 +63,7 @@ export default function AdminBlogs() {
 
   const handleDelete = async (id) => {
     // Send blog deletion request to Flask backend
-    const response = await fetch(`http://localhost:5000/api/blogs/${id}`, { method: 'DELETE' });
+    const response = await fetch(`https://vijay90.pythonanywhere.com/api/blogs/${id}`, { method: 'DELETE' });
     if (response.ok) {
       // Optionally refetch blogs after deletion
       setBlogs((blogs) => blogs.filter((blog) => blog.id !== id));
@@ -109,7 +109,7 @@ export default function AdminBlogs() {
             blogs.map((blog) => (
               <div key={blog.id} className="border border-gray-300 rounded-lg shadow-lg flex">
                 {blog.image_url ? (
-                  <Image src={`http://localhost:5000${blog.image_url}`} width={500} height={200} alt={blog.title} className="w-1/4 object-cover" />
+                  <Image src={`https://vijay90.pythonanywhere.com/api/blogs/${blog.image_url}`} width={500} height={200} alt={blog.title} className="w-1/4 object-cover" />
                 ) : (
                   <div className="w-1/4 bg-gray-200 flex items-center justify-center">No Image</div>
                 )}

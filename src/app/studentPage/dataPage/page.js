@@ -42,7 +42,7 @@ const DataPage = () => {
     return (
         <section className="bg-gray-100 flex">
             
-            <ProductSidebar />
+            {/* <ProductSidebar /> */}
             <div className="container mx-auto px-6 py-10 lg:w-3/4">
                 <h4 className="text-2xl font-bold text-center text-gray-800 mb-6">Research Data</h4>
                 {error && <p className="text-red-600 mb-6">{error}</p>}
