@@ -7,7 +7,7 @@ import { useUser } from "../../context/UserContext"; // Assuming you have user c
 import { db } from '../../firebaseConfig/auth'; // Adjust according to your project structure
 import { doc, getDoc } from "firebase/firestore"; // Firebase Firestore functions
 
-export default function AdminSidebar({   }) {
+export default function AdminSidebar({  }) {
   const { user } = useUser(); // Assuming user context provides user data
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
@@ -65,12 +65,12 @@ export default function AdminSidebar({   }) {
         </div>
 
         {/* Dashboard Text */}
-        <Link
-          href="/adminPage"
-          className="block py-3 px-4 hover:bg-gray-700 w-full bg-gray-900 text-center text-sm font-semibold"
-        >
-          DASHBOARD
-        </Link>
+        <button
+            className="w-11/12 py-3 px-4 hover:bg-gray-900 border-b border-white text-center text-xl font-semibold"
+            onClick={() => handleViewChange("dashboard")}
+          >
+            Dashboard
+          </button>
 
         {/* Sidebar Links */}
         <nav className="w-full flex flex-col items-center space-y-2">

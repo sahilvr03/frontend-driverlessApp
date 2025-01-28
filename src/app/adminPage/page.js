@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { FaArrowLeft } from "react-icons/fa"; // Import back icon
+import { FaArrowLeft, FaUsers, FaClipboardList, FaBlog, FaShoppingCart, FaMapMarkedAlt, FaFileUpload } from "react-icons/fa"; // Improved Icons
 import AdminSidebar from "../components/adminSidebar/page";
 import ProtectedRoute from "../protectedRoute/protectedRoute";
 import Posts from "./posts/page";
@@ -17,8 +17,8 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false); // Loading state
   const router = useRouter();
   const [posts, setPosts] = useState([]);
-  const[blogs, setBlogs]=useState([]);
-  const [products, setProducts]=useState([]);
+  const [blogs, setBlogs] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     // Fetch all products from Flask API
@@ -89,61 +89,57 @@ export default function Dashboard() {
     switch (view) {
       case "dashboard":
         return (
-          <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-[80vw] overflow-x-scroll">
-              <div
-                className="bg-[#fbbd08] text-white rounded-lg shadow-lg p-6 cursor-pointer"
-                onClick={() => handleViewChange("users")}
-              >
-                <h2 className="text-xl font-bold">Total Users</h2>
-                <p className="text-2xl">{userCount}</p>
-                <a className="block mt-4 text-sm underline">Click here</a>
-              </div>
-              <div
-                  className="bg-[#2185d0] text-white rounded-lg shadow-lg p-6 cursor-pointer"
-                  onClick={() => handleViewChange("posts")}
-                >
-                  <h2 className="text-xl font-bold">Total Posts</h2>
-                  <p className="text-2xl">{posts.length}</p>
-                  <a className="block mt-4 text-sm underline">Click here</a>
-                </div>
-
-                <div className="bg-[#db2828] text-white rounded-lg shadow-lg p-6 cursor-pointer"
-                  onClick={() => handleViewChange("AdminBlogs")}>
-                  <h2 className="text-xl font-bold">Total Blogs</h2>
-                  <p className="text-2xl">{blogs.length}</p>
-                  <a className="block mt-4 text-sm underline">Click here</a>
-                </div>
-
-                <div
-                  className="bg-[#a333c8] text-white rounded-lg shadow-lg p-6 cursor-pointer"
-                  onClick={() => handleViewChange("products")}
-                >
-                  <h2 className="text-xl font-bold">Total Products</h2>
-                  <p className="text-2xl">{products.length}</p>
-
-                  <a className="block mt-4 text-sm underline">Click here</a>
-                </div>
-
-                <div className="bg-[#21ba45] text-white rounded-lg shadow-lg p-6">
-                  <h2 className="text-xl font-bold">Total Maps</h2>
-                  <a className="block mt-4 text-sm underline">Click here</a>
-                </div>
-
-                <div
-                  className="bg-[#e03997] text-white rounded-lg shadow-lg p-6 cursor-pointer"
-                   onClick={() => handleViewChange("AdminBlogs")}
-                >
-                  <h2 className="text-xl font-bold">Total Articles</h2>
-                  <a className="block mt-4 text-sm underline">Click here</a>
-                </div>
-
-                <div className="bg-[#a333c8] text-white rounded-lg shadow-lg p-6">
-                  <h2 className="text-xl font-bold">Total Requests</h2>
-                  <a className="block mt-4 text-sm underline">Click here</a>
-                </div>
+          <div className="grid grid-cols-1 bg-gray-100 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-[80vw] overflow-x-scroll">
+            <div
+              className="bg-[#1abc9c] text-white rounded-lg shadow-lg p-6 cursor-pointer hover:shadow-xl transform hover:scale-105 transition-all"
+              onClick={() => handleViewChange("users")}
+            >
+              <FaUsers className="text-4xl mb-4" />
+              <h2 className="text-xl font-bold">Total Users</h2>
+              <p className="text-2xl">{userCount}</p>
+              <a className="block mt-4 text-sm underline">Click here</a>
             </div>
-          </>
+            <div
+              className="bg-[#3498db] text-white rounded-lg shadow-lg p-6 cursor-pointer hover:shadow-xl transform hover:scale-105 transition-all"
+              onClick={() => handleViewChange("posts")}
+            >
+              <FaClipboardList className="text-4xl mb-4" />
+              <h2 className="text-xl font-bold">Total Posts</h2>
+              <p className="text-2xl">{posts.length}</p>
+              <a className="block mt-4 text-sm underline">Click here</a>
+            </div>
+            <div
+              className="bg-[#e74c3c] text-white rounded-lg shadow-lg p-6 cursor-pointer hover:shadow-xl transform hover:scale-105 transition-all"
+              onClick={() => handleViewChange("AdminBlogs")}
+            >
+              <FaBlog className="text-4xl mb-4" />
+              <h2 className="text-xl font-bold">Total Blogs</h2>
+              <p className="text-2xl">{blogs.length}</p>
+              <a className="block mt-4 text-sm underline">Click here</a>
+            </div>
+            <div
+              className="bg-[#9b59b6] text-white rounded-lg shadow-lg p-6 cursor-pointer hover:shadow-xl transform hover:scale-105 transition-all"
+              onClick={() => handleViewChange("products")}
+            >
+              <FaShoppingCart className="text-4xl mb-4" />
+              <h2 className="text-xl font-bold">Total Products</h2>
+              <p className="text-2xl">{products.length}</p>
+              <a className="block mt-4 text-sm underline">Click here</a>
+            </div>
+            <div
+              className="bg-[#f39c12] text-white rounded-lg shadow-lg p-6 cursor-pointer hover:shadow-xl transform hover:scale-105 transition-all"
+              onClick={() => handleViewChange("upload")}
+            >
+              <FaFileUpload className="text-4xl mb-4" />
+              <h2 className="text-xl font-bold">Upload New Content</h2>
+              <a className="block mt-4 text-sm underline">Click here</a>
+            </div>
+            <div className="bg-[#2ecc71] text-white rounded-lg shadow-lg p-6 cursor-pointer hover:shadow-xl transform hover:scale-105 transition-all">
+              <FaMapMarkedAlt className="text-4xl mb-4" />
+              <h2 className="text-xl font-bold">Total Maps</h2>
+              <a className="block mt-4 text-sm underline">Click here</a>
+            </div>
+          </div>
         );
       case "posts":
         return <Posts />;
@@ -151,8 +147,8 @@ export default function Dashboard() {
         return <AdminBlogs />;
       case "products":
         return <ProductsPage />;
-        case "upload":
-          return <AdminUploadPage />;
+      case "upload":
+        return <AdminUploadPage />;
       case "users":
         return <UserInfo />;
       default:
@@ -170,9 +166,9 @@ export default function Dashboard() {
     <ProtectedRoute allowedRoles={['admin']}>
       <div className="flex min-h-screen">
         <AdminSidebar handleViewChange={handleViewChange} />
-        <div className="flex-1 p-8 bg-gray-300">
+        <div className="flex-1 p-8 bg-gray-100">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+            <h1 className="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
             {view !== "dashboard" && (
               <button
                 onClick={() => setView("dashboard")}
