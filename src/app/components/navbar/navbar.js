@@ -134,40 +134,38 @@ const Navbar = () => {
           <Link href="/" className="block py-2 hover:text-gray-300">
             Home
           </Link>
-          <Link href="/#about" className="hover:text-gray-300">
+          <Link href="/#about" className="block py-2 hover:text-gray-300">
             About Us
           </Link>
-          <Link href="/#Technology" className="hover:text-gray-300">
+          <Link href="/#Technology" className="block py-2 hover:text-gray-300">
             Technology
           </Link>
+          
           {user ? (
             <>
+              
               <Link
-                href="../studentPage/dataPage"
-                className="hover:text-gray-300"
+                href="../studentPage/servicesPage"
+                className="block py-2 hover:text-gray-300"
               >
-                Products
+                Services
               </Link>
               <Link
-                href="../studentPage/newsPage"
-                className="hover:text-gray-300"
+                href="../studentPage/articlePage"
+                className="block py-2 hover:text-gray-300"
               >
                 News
               </Link>
+
               <Link
-                href="../studentPage/dashboardPage"
-                className="hover:text-gray-300"
+                href="../studentPage/productPage"
+                className="block py-2 hover:text-gray-300"
               >
-                Dashboard
+                Product
               </Link>
-              <Link
-                href="../studentPage/blogPage"
-                className="hover:text-gray-300"
-              >
-                Blogs
-              </Link>
+              
               {user.role === "admin" && (
-                <Link href="/adminPage" className="hover:text-gray-300">
+                <Link href="/adminPage" className="block py-2 hover:text-gray-300">
                   Adminpage
                 </Link>
               )}
@@ -180,18 +178,13 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link
+              {/* <Link
                 href="../studentPage/productPage"
                 className="hover:text-gray-300"
               >
-                Products
-              </Link>
-              <Link
-                href="../studentPage/newsPage"
-                className="hover:text-gray-300"
-              >
-                News
-              </Link>
+                ProductsS
+              </Link> */}
+             
               <button
                 className="bg-transparent border border-white w-full py-2 mt-4 rounded hover:bg-rose-600 hover:text-white"
                 onClick={() => router.push("/Login")}

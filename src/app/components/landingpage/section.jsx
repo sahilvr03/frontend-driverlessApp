@@ -175,12 +175,12 @@ const Section = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <button className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-[#00ff9d] px-8 py-3 font-medium text-black transition duration-300 ease-out hover:scale-105">
+              {/* <button className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-[#00ff9d] px-8 py-3 font-medium text-black transition duration-300 ease-out hover:scale-105">
                 <span className="absolute inset-0 h-full w-full scale-0 transform bg-white transition-transform duration-300 ease-out group-hover:scale-100" />
                 <span className="relative flex items-center gap-2">
                    <ArrowRight className="h-4 w-4" />
                 </span>
-              </button>
+              </button> */}
             </motion.div>
           </motion.div>
 
