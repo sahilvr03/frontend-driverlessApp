@@ -33,8 +33,165 @@ export default function DataCleaningServices() {
     const [activeTab, setActiveTab] = useState('deduplication');
     const activeService = services.find((service) => service.id === activeTab);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+        
+        const [formData, setFormData] = useState({
+            firstName: '',
+            lastName: '',
+            email: '',
+            contactNumber: '',
+            organization: '',
+            url: '',
+            purpose: '',
+          });
+          const [status, setStatus] = useState(null);
+        
+          const handleSubmit = async (e) => {
+            e.preventDefault();
+            setStatus('loading');
+        
+            try {
+              const response = await fetch('/api/email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+              });
+        
+              if (response.ok) {
+                setStatus('success');
+                setFormData({
+                  firstName: '',
+                  lastName: '',
+                  email: '',
+                  contactNumber: '',
+                  organization: '',
+                  url: '',
+                  purpose: '',
+                });
+              } else {
+                setStatus('error');
+              }
+            } catch (error) {
+              console.error('Error submitting form:', error);
+              setStatus('error');
+            }
+          };
+          const handleCloseModal = () => setIsModalOpen(false);
+
     return (
         <div className="bg-gray-50 text-gray-800">
+
+         {/* Modal */}
+         {isModalOpen && (
+   <div
+   className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+   onClick={handleCloseModal} // Close modal when clicking outside
+ >
+   <div
+     className="bg-white p-8 rounded-2xl shadow-2xl w-[90%] md:w-[40%] relative"
+     onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
+   >
+     <button
+       onClick={handleCloseModal}
+       className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
+     >
+       ✕
+     </button>
+     <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+       Contact Us
+     </h2>
+     <p className="mb-6 text-sm text-gray-600 text-center">
+       Fill out the form below to get started.
+     </p>
+     <form onSubmit={handleSubmit} className="space-y-4">
+       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+         <input
+           type="text"
+           placeholder="First Name"
+           value={formData.firstName}
+           onChange={(e) =>
+             setFormData({ ...formData, firstName: e.target.value })
+           }
+           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+         />
+         <input
+           type="text"
+           placeholder="Last Name"
+           value={formData.lastName}
+           onChange={(e) =>
+             setFormData({ ...formData, lastName: e.target.value })
+           }
+           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+         />
+       </div>
+       <input
+         type="email"
+         placeholder="Email"
+         value={formData.email}
+         onChange={(e) =>
+           setFormData({ ...formData, email: e.target.value })
+         }
+         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+       />
+       <input
+         type="text"
+         placeholder="Contact Number"
+         value={formData.contactNumber}
+         onChange={(e) =>
+           setFormData({ ...formData, contactNumber: e.target.value })
+         }
+         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+       />
+       <input
+         type="text"
+         placeholder="Organization"
+         value={formData.organization}
+         onChange={(e) =>
+           setFormData({ ...formData, organization: e.target.value })
+         }
+         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+       />
+       <input
+         type="text"
+         placeholder="Website URL"
+         value={formData.url}
+         onChange={(e) =>
+           setFormData({ ...formData, url: e.target.value })
+         }
+         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+       />
+       <textarea
+         placeholder="Purpose"
+         value={formData.purpose}
+         onChange={(e) =>
+           setFormData({ ...formData, purpose: e.target.value })
+         }
+         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+         rows="4"
+       ></textarea>
+       <button
+         type="submit"
+         className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold py-2 rounded-lg hover:scale-105 transform transition duration-300"
+       >
+         Submit
+       </button>
+     </form>
+     <div className="mt-4 text-center">
+       {status === 'loading' && <p className="text-blue-500">Sending...</p>}
+       {status === 'success' && (
+         <p className="text-green-500">Message sent successfully!</p>
+       )}
+       {status === 'error' && (
+         <p className="text-red-500">Failed to send message.</p>
+       )}
+     </div>
+   </div>
+ </div>
+)}
+
+
+
+
             {/* Hero Section */}
             <section className="flex flex-col md:flex-row items-center justify-between px-6 py-12 md:px-16 bg-blue-100">
                 <motion.div
@@ -163,9 +320,10 @@ export default function DataCleaningServices() {
                             ))}
                         </ul>
                         <motion.button
-                            className="px-6 py-3 mt-8 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition-all"
+                            className="px-6 py-3 mt-8 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-all"
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
+                            onClick={() => setIsModalOpen(true)}
                         >
                             Get Services
                         </motion.button>
