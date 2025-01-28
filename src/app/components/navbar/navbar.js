@@ -130,7 +130,7 @@ const Navbar = () => {
       </div>
 
       {isOpen && (
-        <div className="absolute top-full left-0 w-full bg-gray-800 p-4 lg:hidden z-50">
+        <div className="absolute top-full left-0 w-full bg-gray-800 p-4 lg:hidden z-50 gap-5 flex flex-wrap">
           <Link href="/" className="block py-2 hover:text-gray-300">
             Home
           </Link>
@@ -170,7 +170,7 @@ const Navbar = () => {
                 </Link>
               )}
               <button
-                className="bg-transparent border border-white w-full py-2 mt-4 rounded hover:bg-white hover:text-gray-900"
+                className="bg-transparent border border-white w-full py-2 mt-4 rounded hover:bg-rose-600 hover:text-white"
                 onClick={handleLogout}
               >
                 Log out

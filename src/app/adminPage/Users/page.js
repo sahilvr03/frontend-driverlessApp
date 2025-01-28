@@ -1,5 +1,3 @@
-    
-
 "use client";
 import { useEffect, useState } from "react";
 import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
@@ -18,7 +16,7 @@ const UserInfo = () => {
     role: "",
   }); // Form data for editing
 
-  // Fetch users from Firestore
+  // Fetch users from Firestore and their online status
   const fetchUsers = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, "users"));
@@ -41,8 +39,17 @@ const UserInfo = () => {
     }
   };
 
+  // Update user status in real-time using a polling mechanism
   useEffect(() => {
-    fetchUsers();
+    fetchUsers(); // Initial fetch
+
+    // Set an interval to refresh the user statuses every 5 seconds
+    const interval = setInterval(() => {
+      fetchUsers(); // Refetch users' status every 5 seconds
+    }, 5000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   const handleUpdateUser = async (e, userId) => {
@@ -108,9 +115,9 @@ const UserInfo = () => {
       role: user.role,
     });
   };
+
   return (
     <div className="flex min-h-screen bg-gray-100">
-
       <div className="container mx-auto py-4">
         <h1 className="text-3xl font-bold mb-6 text-center">User Information</h1>
 

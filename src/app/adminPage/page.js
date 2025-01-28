@@ -20,9 +20,6 @@ export default function Dashboard() {
   const[blogs, setBlogs]=useState([]);
   const [products, setProducts]=useState([]);
 
-
-
-
   useEffect(() => {
     // Fetch all products from Flask API
     const fetchProducts = async () => {
@@ -40,7 +37,6 @@ export default function Dashboard() {
 
     fetchProducts();
   }, []);
-
 
   useEffect(() => {
     fetchBlogs();
@@ -94,7 +90,7 @@ export default function Dashboard() {
       case "dashboard":
         return (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-[80vw] overflow-x-scroll">
               <div
                 className="bg-[#fbbd08] text-white rounded-lg shadow-lg p-6 cursor-pointer"
                 onClick={() => handleViewChange("users")}
@@ -122,7 +118,6 @@ export default function Dashboard() {
                 <div
                   className="bg-[#a333c8] text-white rounded-lg shadow-lg p-6 cursor-pointer"
                   onClick={() => handleViewChange("products")}
-
                 >
                   <h2 className="text-xl font-bold">Total Products</h2>
                   <p className="text-2xl">{products.length}</p>
