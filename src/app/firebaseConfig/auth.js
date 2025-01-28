@@ -2,6 +2,8 @@ import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getDatabase } from "firebase/database"; // Import Realtime Database
+import { getAnalytics, isSupported } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -21,6 +23,19 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app); // Adding Firebase Storage
+const db1 = getDatabase(app);
+
+
+
+let analytics;
+if (typeof window !== "undefined") {
+  isSupported().then((supported) => {
+    if (supported) {
+      analytics = getAnalytics(app);
+    }
+  });
+}
+
 
 // Export Firebase services
-export { auth, db, storage, app };
+export { auth, db, db1, storage, analytics, app };

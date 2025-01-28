@@ -45,38 +45,54 @@
 
 
 "use client";
-import { createContext, useContext, useState, useEffect, useRef } from 'react';
-import { auth } from '../firebaseConfig/auth'; 
-import { onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth"; // Import persistence
-import { setCookie } from 'cookies-next';
+import { createContext, useContext, useState, useEffect, useRef } from "react";
+import { auth, db1 } from "../firebaseConfig/auth";
+import {
+  onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
+import { ref, onDisconnect, onValue, set } from "firebase/database";
+import { setCookie } from "cookies-next";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);1
+  const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const isSigningUp = useRef(false);
 
   useEffect(() => {
-    // Set persistence to local storage
-    setPersistence(auth, browserLocalPersistence) // Ensure persistence
+    setPersistence(auth, browserLocalPersistence)
       .then(() => {
         const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
           if (authUser) {
-            if (!isSigningUp.current) {
-              setUser({
-                uid: authUser.uid,
-                email: authUser.email,
-                role: localStorage.getItem("Role")
-              });
-              // Wait for the token before setting the cookie
-              const token = await authUser.getIdToken();
-              setCookie('token', token, { maxAge: 60 * 60 * 24 }); // Token valid for 1 day
-            }
+            const token = await authUser.getIdToken();
+            setCookie("token", token, { maxAge: 60 * 60 * 24 });
+
+            // Realtime DB references for online status
+            const userStatusRef = ref(db1, `/status/${authUser.uid}`);
+            const onlineStatus = {
+              state: "online",
+              last_changed: new Date().toISOString(),
+            };
+            const offlineStatus = {
+              state: "offline",
+              last_changed: new Date().toISOString(),
+            };
+
+            // Update status to online and set disconnect behavior
+            set(userStatusRef, onlineStatus);
+            onDisconnect(userStatusRef).set(offlineStatus);
+
+            setUser({
+              uid: authUser.uid,
+              email: authUser.email,
+              role: localStorage.getItem("Role"),
+            });
           } else {
             setUser(null);
-            // Remove token from cookies on logout
-            setCookie('token', '', { maxAge: -1 });
+            setCookie("token", "", { maxAge: -1 });
           }
           setIsLoading(false);
         });
@@ -90,19 +106,31 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   const logout = async () => {
+    const userStatusRef = ref(db1, `/status/${user?.uid}`);
+    await set(userStatusRef, {
+      state: "offline",
+      last_changed: new Date().toISOString(),
+    });
     await auth.signOut();
     setUser(null);
-    // Remove token on logout
-    setCookie('token', '', { maxAge: -1 });
+    setCookie("token", "", { maxAge: -1 });
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, isLoading, logout, setIsSigningUp: (value) => { isSigningUp.current = value; } }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+        isLoading,
+        logout,
+        setIsSigningUp: (value) => {
+          isSigningUp.current = value;
+        },
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
 };
 
 export const useUser = () => useContext(UserContext);
-
-

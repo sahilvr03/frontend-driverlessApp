@@ -1,7 +1,10 @@
+    
+
 "use client";
 import { useEffect, useState } from "react";
 import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
-import { db } from "@/app/firebaseConfig/auth"; // Ensure this points to your correct Firebase config
+import { db, db1 } from "@/app/firebaseConfig/auth"; // Ensure this points to your correct Firebase config
+import { ref, get } from "firebase/database"; // Firebase Realtime Database methods
 import AdminSidebar from "@/app/components/adminSidebar/page";
 import Swal from "sweetalert2"; // SweetAlert2 for confirmation dialog
 
@@ -23,6 +26,15 @@ const UserInfo = () => {
       querySnapshot.forEach((doc) => {
         userData.push({ ...doc.data(), id: doc.id });
       });
+
+      // Fetch the online status for each user from Firebase Realtime Database
+      for (let user of userData) {
+        const userStatusRef = ref(db1, `status/${user.id}`);
+        const statusSnapshot = await get(userStatusRef);
+        const status = statusSnapshot.exists() ? statusSnapshot.val() : null;
+        user.status = status ? status.state : "offline"; // Set user status
+      }
+
       setUsers(userData);
     } catch (error) {
       console.error("Error fetching users: ", error);
@@ -42,7 +54,7 @@ const UserInfo = () => {
         phonenumber: newUserData.phonenumber,
         role: newUserData.role,
       });
-  
+
       setUsers(users.map(user => (user.id === userId ? { ...newUserData, id: userId } : user)));
       setEditingUser(null);
     } catch (error) {
@@ -59,7 +71,7 @@ const UserInfo = () => {
       confirmButtonText: "Yes, delete it!",
       cancelButtonText: "Cancel",
     });
-  
+
     if (result.isConfirmed) {
       try {
         // Call the Next.js API route to delete user from Firebase Auth
@@ -70,23 +82,23 @@ const UserInfo = () => {
           },
           body: JSON.stringify({ userId }), // Sending userId instead of authId
         });
-  
+
         if (!response.ok) {
           throw new Error("Failed to delete user from Firebase Auth");
         }
-  
+
         // If successful, delete from Firestore
         await deleteDoc(doc(db, "users", userId));
         setUsers(users.filter((user) => user.id !== userId));
         Swal.fire("Deleted!", `User ${username} has been deleted.`, "success");
-  
+
       } catch (error) {
         console.error("Error deleting user: ", error);
         Swal.fire("Error!", "There was a problem deleting the user.", "error");
       }
     }
   };
-  
+
   const handleEdit = (user) => {
     setEditingUser(user.id);
     setNewUserData({
@@ -96,7 +108,6 @@ const UserInfo = () => {
       role: user.role,
     });
   };
-
   return (
     <div className="flex min-h-screen bg-gray-100">
 
@@ -170,23 +181,15 @@ const UserInfo = () => {
             </thead>
             <tbody>
               {users.map((user) => (
-                <tr
-                  key={user.id}
-                
-                >
+                <tr key={user.id}>
                   <td className="py-2 px-4 border-b">{user.id}</td>
                   <td className="py-2 px-4 border-b">{user.username}</td>
                   <td className="py-2 px-4 border-b">{user.email}</td>
                   <td className="py-2 px-4 border-b">{user.phonenumber}</td>
                   <td className="py-2 px-4 border-b">{user.role}</td>
-                  <td
-                  className={`py-2 px-4 border-b hover:bg-gray-100 ${
-                    user.status === "online" ? "bg-green-400 text-cyan-50" : "bg-gray-100"
-                  }`}
-                >
-                  {user.status === "online" ? "Online" : "Offline"}
-                </td>
-
+                  <td className={`py-2 px-4 border-b hover:bg-gray-100 ${user.status === "online" ? "bg-green-400 text-cyan-50" : "bg-gray-100"}`}>
+                    {user.status === "online" ? "Online" : "Offline"}
+                  </td>
                   <td className="py-2 px-4 border-b flex space-x-2">
                     <button
                       className="bg-red-500 text-white px-4 py-1 rounded-md hover:bg-red-600 transition"
