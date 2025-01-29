@@ -42,17 +42,7 @@ const Contact = () => {
   return (
     <section className="relative block ">
       {/* Introductory Message */}
-      <div className="container mx-auto px-4 mb-8">
-        <div className="flex justify-center">
-          <div className="bg-blue-100 text-blue-800 border border-blue-200 rounded-lg shadow-md p-6 max-w-3xl">
-            <h2 className="text-xl font-semibold mb-2 text-center">We’re here to help</h2>
-            <p className="text-center leading-relaxed">
-            Your feedback is important to us. Whether you have a question or want to report an issue, our team wants to hear from you. 
-            Complete the form below to get in touch with us.
-            </p>
-          </div>
-        </div>
-      </div>
+     
 
       {/* Contact Form */}
       <div className="container mx-auto px-4">
@@ -60,7 +50,7 @@ const Contact = () => {
           <div className="w-full lg:w-6/12 px-4">
             <form
               onSubmit={handleSubmit}
-              className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300"
+              className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-1-00"
             >
               <div className="flex-auto p-5 lg:p-10">
                 <h4 className="text-2xl font-semibold">Contact Us</h4>
@@ -122,6 +112,17 @@ const Contact = () => {
                 </div>
               </div>
             </form>
+          </div>
+        </div>
+      </div>
+      <div className="container mx-auto px-4 mb-8">
+        <div className="flex justify-center">
+          <div className="bg-blue-100 text-blue-800 border border-blue-200 rounded-lg shadow-md p-6 max-w-3xl">
+            <h2 className="text-xl font-semibold mb-2 text-center">We’re here to help</h2>
+            <p className="text-center leading-relaxed">
+            Your feedback is important to us. Whether you have a question or want to report an issue, our team wants to hear from you. 
+            Complete the form below to get in touch with us.
+            </p>
           </div>
         </div>
       </div>
