@@ -163,7 +163,7 @@ const Section = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-lg text-gray-300"
+              className="text-xl text-gray-200"
             >
               Elevate your driving experience with our cutting-edge self-drive solutions. 
               Acceleration 0-60 mph at 4.1 sec. Its 649 hp combines power and efficiency 
