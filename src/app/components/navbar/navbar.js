@@ -68,7 +68,7 @@ const Navbar = () => {
           <Link href="/#about" className="hover:text-gray-300">
             About Us
           </Link>
-          <Link href="/#Technology" className="hover:text-gray-300">
+          <Link href="../studentPage/tech" className="hover:text-gray-300">
             Technology
           </Link>
           {user ? (
@@ -85,6 +85,7 @@ const Navbar = () => {
               >
                 News
               </Link>
+             
               <Link
                 href="../studentPage/servicesPage"
                 className="hover:text-gray-300"
@@ -149,6 +150,12 @@ const Navbar = () => {
                 className="block py-2 hover:text-gray-300"
               >
                 Services
+              </Link>
+              <Link
+                href="../studentPage/tech"
+                className="block py-2 hover:text-gray-300"
+              >
+                tech
               </Link>
               <Link
                 href="../studentPage/articlePage"
