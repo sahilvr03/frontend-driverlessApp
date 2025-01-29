@@ -118,7 +118,7 @@ const UserInfo = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <div className="container mx-auto py-4">
+      <div className="container mx-auto ">
         <h1 className="text-3xl font-bold mb-6 text-center">User Information</h1>
 
         {editingUser && (

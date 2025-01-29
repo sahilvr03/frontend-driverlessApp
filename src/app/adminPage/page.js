@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { FaArrowLeft, FaUsers, FaClipboardList, FaBlog, FaShoppingCart, FaMapMarkedAlt, FaFileUpload } from "react-icons/fa"; // Improved Icons
-import AdminSidebar from "../components/adminSidebar/page";
+import { FaArrowLeft, FaUserAlt, FaUsers, FaClipboardList, FaBlog, FaShoppingCart, FaMapMarkedAlt, FaFileUpload } from "react-icons/fa"; // Improved Icons
 import ProtectedRoute from "../protectedRoute/protectedRoute";
 import Posts from "./posts/page";
 import AdminBlogs from "./BlogPost/page";
@@ -10,8 +9,16 @@ import UserInfo from "./Users/page";
 import { useRouter } from "next/navigation";
 import Loader from "../components/loader/loader";
 import AdminUploadPage from "./adminUploadPage/page";
+import { FaBars, FaTimes } from "react-icons/fa";
+import { useUser } from "../context/UserContext"; // Assuming you have user context
+import { db } from '../firebaseConfig/auth'; // Adjust according to your project structure
+import { doc, getDoc } from "firebase/firestore"; // Firebase Firestore functions
+import Image from "next/image";
 
 export default function Dashboard() {
+  const { user } = useUser(); // Assuming user context provides user data
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [userProfile, setUserProfile] = useState(null);
   const [userCount, setUserCount] = useState(0);
   const [view, setView] = useState("dashboard");
   const [loading, setLoading] = useState(false); // Loading state
@@ -19,6 +26,24 @@ export default function Dashboard() {
   const [posts, setPosts] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (user?.uid) {
+        try {
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          if (userDoc.exists()) {
+            setUserProfile(userDoc.data()); // Set user profile data
+          } else {
+            console.log("No such document!");
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      }
+    };
+    fetchUserData();
+  }, [user]);
 
   useEffect(() => {
     // Fetch all products from Flask API
@@ -162,26 +187,99 @@ export default function Dashboard() {
     return () => clearTimeout(timer); // Cleanup on component unmount
   }, [view]);
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <ProtectedRoute allowedRoles={['admin']}>
-      <div className="flex min-h-screen">
-        <AdminSidebar handleViewChange={handleViewChange} />
-        <div className="flex-1 p-8 bg-gray-100">
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
-            {view !== "dashboard" && (
-              <button
-                onClick={() => setView("dashboard")}
-                className="text-gray-700 hover:text-gray-900 flex items-center space-x-2"
-              >
-                <FaArrowLeft className="w-5 h-5" />
-                <span>Back</span>
-              </button>
-            )}
-          </div>
-          {/* Display loader or content based on loading state */}
-          {loading ? <Loader /> : renderContent()}
-        </div>
+      <div className="flex min-h-screen bg-gray-200">
+{/* Sidebar */}
+<div
+  className={`fixed lg:sticky lg:top-0 h-screen w-60 bg-gray-800 text-white flex flex-col items-center pt-2 transition-transform duration-300 z-40 lg:z-auto ${isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+    }`}
+>
+  <button
+    className="text-3xl lg:hidden text-black fixed top-16 left-4 z-50"
+    onClick={toggleSidebar}
+  >
+    {isSidebarOpen ? <FaTimes /> : <FaBars />}
+  </button>
+
+  <div className="mb-8 text-center">
+  {userProfile ? (
+  <>
+    {/* Demo User Icon */}
+    <div className="w-24 h-24 rounded-full bg-gray-500 flex items-center justify-center mb-2">
+      <FaUserAlt className="text-white text-4xl" />
+    </div>
+    <p className="mt-2 text-2xl font-semibold">{userProfile.username}</p>
+  </>
+) : (
+  <p>Loading...</p>
+)}
+
+  </div>
+
+
+  <nav className="w-full flex flex-col items-center space-y-2">
+  <button
+    className={`w-11/12 py-3 px-4 border-b border-white text-center text-xl font-semibold ${view === "dashboard" ? "bg-gray-700 cursor-not-allowed" : "hover:bg-gray-700"}`}
+    onClick={() => handleViewChange("dashboard")}
+    disabled={view === "dashboard"}
+  >
+    Dashboard
+  </button>
+  <button
+    className={`w-11/12 py-3 px-4 border-b border-white text-center text-sm font-semibold ${view === "upload" ? "bg-gray-700 cursor-not-allowed" : "hover:bg-gray-700"}`}
+    onClick={() => handleViewChange("upload")}
+    disabled={view === "upload"}
+  >
+    UPLOAD-DATA
+  </button>
+  <button
+    className={`w-11/12 py-3 px-4 border-b border-white text-center text-sm font-semibold ${view === "posts" ? "bg-gray-700 cursor-not-allowed" : "hover:bg-gray-700"}`}
+    onClick={() => handleViewChange("posts")}
+    disabled={view === "posts"}
+  >
+    POSTS
+  </button>
+  <button
+    className={`w-11/12 py-3 px-4 border-b border-white text-center text-sm font-semibold ${view === "AdminBlogs" ? "bg-gray-700 cursor-not-allowed" : "hover:bg-gray-700"}`}
+    onClick={() => handleViewChange("AdminBlogs")}
+    disabled={view === "AdminBlogs"}
+  >
+    BLOGS
+  </button>
+  <button
+    className={`w-11/12 py-3 px-4 border-b border-white text-center text-sm font-semibold ${view === "products" ? "bg-gray-700 cursor-not-allowed" : "hover:bg-gray-700"}`}
+    onClick={() => handleViewChange("products")}
+    disabled={view === "products"}
+  >
+    PRODUCTS
+  </button>
+  <button
+    className={`w-11/12 py-3 px-4 border-b border-white text-center text-sm font-semibold ${view === "maps" ? "bg-gray-700 cursor-not-allowed" : "hover:bg-gray-700"}`}
+    onClick={() => handleViewChange("maps")}
+    disabled={view === "maps"}
+  >
+    ADD MAPS
+  </button>
+  <button
+    className={`w-11/12 py-3 px-4 border-b border-white text-center text-sm font-semibold ${view === "articles" ? "bg-gray-700 cursor-not-allowed" : "hover:bg-gray-700"}`}
+    onClick={() => handleViewChange("articles")}
+    disabled={view === "articles"}
+  >
+    CREATE ARTICLES
+  </button>
+</nav>
+
+</div>
+
+
+        <div className="flex-grow p-4 bg-gray-100 overflow-x-scroll">
+        <h1 className="text-3xl mb-7 font-bold text-gray-800">Admin Dashboard</h1>
+          {loading ? <Loader /> : renderContent()}</div>
       </div>
     </ProtectedRoute>
   );
