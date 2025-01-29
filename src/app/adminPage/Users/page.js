@@ -199,7 +199,7 @@ const UserInfo = () => {
                   <td className="py-2 px-4 border-b">{user.email}</td>
                   <td className="py-2 px-4 border-b">{user.phonenumber}</td>
                   <td className="py-2 px-4 border-b">{user.role}</td>
-                  <td className={`py-2 px-4 border-b hover:bg-gray-100 ${user.status === "online" ? "bg-green-400 text-cyan-50" : "bg-gray-100"}`}>
+                  <td className={`py-2 px-4 border-b cursor-pointer ${user.status === "online" ? "bg-green-400 text-cyan-50" : "bg-gray-100"}`}>
                     {user.status === "online" ? "Online" : "Offline"}
                   </td>
                   <td className="py-2 px-4 border-b flex space-x-2">
