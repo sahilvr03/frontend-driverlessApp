@@ -3,7 +3,7 @@
 // pages/technology.js
 
 
-import { faGlobe, faMicrochip, faSparkle, faShieldCheck, faChartBar,faPeopleLine,faDiagramPredecessor} from '@fortawesome/free-solid-svg-icons';
+import { faGlobe, faMicrochip,faChartBar,faPeopleLine,faDiagramPredecessor} from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

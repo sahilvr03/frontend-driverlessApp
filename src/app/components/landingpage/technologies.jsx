@@ -18,7 +18,7 @@ const Technologies = () => {
             </h2>
             <p className="text-xl text-gray-600">
               Experience the next generation of transportation with our AI-powered autonomous vehicles. 
-              Safer, smarter, and sustainable mobility solutions engineered for tomorrow's cities.
+              Safer, smarter, and sustainable mobility solutions engineered for tomorrow cities.
             </p>
             <div className="space-y-6">
               <div className="flex items-center space-x-4">
