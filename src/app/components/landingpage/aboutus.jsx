@@ -1,54 +1,59 @@
 "use client"
 
 import Image from 'next/image';
+import { FaTwitter, FaLinkedinIn, FaGithub, FaInstagram, FaDribbble } from 'react-icons/fa';
 
 const Team = () => (
-  <section className="pt-20 pb-20">
+  <section className="py-20 bg-white-900">
     <div className="container mx-auto px-4">
-      <div className="flex flex-wrap justify-center text-center mb-24">
+      <div className="flex flex-wrap justify-center text-center mb-16">
         <div className="w-full lg:w-6/12 px-4">
-          <h2 className="text-4xl font-semibold">Here are our heroes</h2>
-          <p className="text-lg leading-relaxed m-4 text-gray-600">
-            According to the National Oceanic and Atmospheric Administration, Ted Scambos, NSIDC lead scientist, puts the potentially record maximum.
+          <h2 className="text-5xl font-bold text-gray-600 mb-4">Meet Our Team</h2>
+          <p className="text-lg text-gray-400">
+            A group of passionate individuals driving innovation and creativity forward.
           </p>
         </div>
       </div>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap justify-center -mx-4">
         {[
-          { name: 'Ryan Tompson', role: 'Web Developer', image: '/images/boy.jpg', socials: ['twitter', 'facebook-f', 'dribbble'] },
-          { name: 'Romina Hadid', role: 'Marketing Specialist', image: '/images/boy.jpg', socials: ['google', 'facebook-f'] },
-          { name: 'Alexa Smith', role: 'UI/UX Designer', image: '/images/boy.jpg', socials: ['google', 'twitter', 'instagram'] },
-          { name: 'Jenna Kardi', role: 'Founder and CEO', image: '/images/boy.jpg', socials: ['dribbble', 'google', 'twitter', 'instagram'] },
+          { name: 'Ryan Tompson', role: 'Web Developer', image: '/images/boy.jpg', socials: ['twitter', 'linkedin-in', 'github'] },
+          { name: 'Romina Hadid', role: 'Marketing Specialist', image: '/images/boy.jpg', socials: ['linkedin-in', 'instagram'] },
+          { name: 'Alexa Smith', role: 'UI/UX Designer', image: '/images/boy.jpg', socials: ['dribbble', 'instagram', 'github'] },
+          { name: 'Jenna Kardi', role: 'Founder and CEO', image: '/images/boy.jpg', socials: ['twitter', 'linkedin-in', 'github', 'dribbble'] },
         ].map((member, index) => (
-          <div key={index} className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-            <div className="px-6">
-              <Image
-                alt={member.name}
-                src={member.image}
-                className="shadow-lg rounded-full max-w-full mx-auto"
-                width={120}
-                height={120}
-              />
-              <div className="pt-6 text-center">
-                <h5 className="text-xl font-bold">{member.name}</h5>
-                <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">{member.role}</p>
-                <div className="mt-6 flex justify-center space-x-2">
-                  {member.socials.map((social, idx) => (
-                    <button
-                      key={idx}
-                      className={`w-8 h-8 rounded-full outline-none focus:outline-none ${
-                        social === 'twitter' ? 'bg-blue-400' :
-                        social === 'facebook-f' ? 'bg-blue-600' :
-                        social === 'google' ? 'bg-red-600' :
-                        social === 'dribbble' ? 'bg-pink-500' :
-                        social === 'instagram' ? 'bg-gray-800' : ''
-                      } text-white`}
-                      type="button"
-                    >
-                      <i className={`fab fa-${social}`}></i>
-                    </button>
-                  ))}
-                </div>
+          <div key={index} className="w-full md:w-6/12 lg:w-3/12 px-4 mb-8">
+            <div className="relative bg-gray-800 rounded-lg p-6 transform transition-all duration-500 hover:scale-105 hover:bg-gray-700 group">
+              <div className="relative w-32 h-32 mx-auto mb-6 overflow-hidden rounded-full group-hover:rounded-lg transition-all duration-500">
+                <Image
+                  alt={member.name}
+                  src={member.image}
+                  layout="fill"
+                  objectFit="cover"
+                  className="transition-all duration-500 group-hover:scale-110"
+                />
+              </div>
+              <h3 className="text-2xl font-bold text-white text-center mb-2">{member.name}</h3>
+              <p className="text-sm text-gray-400 text-center mb-4">{member.role}</p>
+              <div className="flex justify-center space-x-4">
+                {member.socials.map((social, idx) => (
+                  <a
+                    key={idx}
+                    href="#"
+                    className={`w-10 h-10 flex items-center justify-center rounded-full bg-gray-700 text-white hover:bg-white hover:text-gray-900 transition-all duration-300 ${
+                      social === 'twitter' ? 'hover:bg-blue-400' :
+                      social === 'linkedin-in' ? 'hover:bg-blue-600' :
+                      social === 'github' ? 'hover:bg-gray-900' :
+                      social === 'instagram' ? 'hover:bg-gradient-to-r from-purple-600 to-pink-600' :
+                      social === 'dribbble' ? 'hover:bg-pink-500' : ''
+                    }`}
+                  >
+                    {social === 'twitter' && <FaTwitter className="w-5 h-5" />}
+                    {social === 'linkedin-in' && <FaLinkedinIn className="w-5 h-5" />}
+                    {social === 'github' && <FaGithub className="w-5 h-5" />}
+                    {social === 'instagram' && <FaInstagram className="w-5 h-5" />}
+                    {social === 'dribbble' && <FaDribbble className="w-5 h-5" />}
+                  </a>
+                ))}
               </div>
             </div>
           </div>

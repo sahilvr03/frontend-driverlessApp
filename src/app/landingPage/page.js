@@ -28,7 +28,7 @@ const Landingpage = () => {
       {/* About Us Section */}
       <Demo/>
       <Achievements/>
-      <Gallery/>
+      {/* <Gallery/> */}
       <AboutUs />
       <Contactus/>
       

@@ -1,127 +1,134 @@
-import { FaUncharted } from "react-icons/fa";
+"use client";
+import { motion, useInView } from "framer-motion";
+import { FaCarAlt, FaRobot, FaSatelliteDish, FaShieldAlt, FaCodeBranch, FaBrain } from "react-icons/fa";
 import Image from "next/image";
 
-const Services = () => (
-  <section className="mt-40">
-    <div className="container mx-auto px-4">
-      <div className="flex flex-wrap">
-        {/* Awarded Agency */}
-        <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
-          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-            <div className="px-4 py-5 flex-auto">
-              <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
-                <i className="fas fa-award"></i>
-              </div>
-              <h6 className="text-xl font-semibold">Awarded Agency</h6>
-              <p className="mt-2 mb-4 text-gray-600">
-                Divide details about your product or agency work into parts. A paragraph describing a feature will be enough.
-              </p>
-            </div>
-          </div>
-        </div>
+const Services = () => {
+  const services = [
+    {
+      icon: FaRobot,
+      title: "AI Navigation Systems",
+      description: "Deep learning-powered path prediction and real-time decision making for complex urban environments",
+      color: "bg-blue-500"
+    },
+    {
+      icon: FaSatelliteDish,
+      title: "Sensor Fusion Tech",
+      description: "Multi-modal integration of LiDAR, radar, and camera systems for 360° environmental perception",
+      color: "bg-emerald-500"
+    },
+    {
+      icon: FaShieldAlt,
+      title: "Safety Certifications",
+      description: "ASIL-D certified control systems with fail-operational architecture for maximum reliability",
+      color: "bg-purple-500"
+    }
+  ];
 
-        {/* Free Revisions */}
-        <div className="w-full md:w-4/12 px-4 text-center">
-          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-            <div className="px-4 py-5 flex-auto">
-              <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
-                <i className="fas fa-retweet"></i>
-              </div>
-              <h6 className="text-xl font-semibold">Free Revisions</h6>
-              <p className="mt-2 mb-4 text-gray-600">
-                Keep your user engaged by providing meaningful information. Remember that by this time, the user is curious.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Verified Company */}
-        <div className="pt-6 w-full md:w-4/12 px-4 text-center">
-          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-            <div className="px-4 py-5 flex-auto">
-              <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400">
-                <i className="fas fa-fingerprint"></i>
-              </div>
-              <h6 className="text-xl font-semibold">Verified Company</h6>
-              <p className="mt-2 mb-4 text-gray-600">
-                Write a few lines about each one. A paragraph describing a feature will be enough. Keep your user engaged!
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Working with us is a pleasure */}
-      <div className="flex flex-wrap items-center mt-10">
-        <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
-          <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-100">
-            <FaUncharted className="text-xl" /> {/* Using FaUserFriends icon */}
-          </div>
-          <h3 className="text-3xl mb-2 font-semibold leading-normal">
-            Working with us is a pleasure
-          </h3>
-          <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700">
-            Dont let your users guess by attaching tooltips and popovers
-            to any element. Just make sure you enable them first via JavaScript.
-          </p>
-          <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-700">
-            The kit comes with three pre-built pages to help you get started faster. You can change the text and images and
-            youre good to go. Just make sure you enable them first via JavaScript.
-          </p>
-          <a
-            href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
-            className="font-bold text-gray-800 mt-8"
-          >
-            Check it out
-          </a>
-        </div>
-
-        {/* Image and Text Block */}
-        <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
-          <div
-            className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-500"
-            style={{ height: "80vh", overflow: "hidden" }}
-          >
-            <Image
-              alt="..."
-              src="/images/picture1.jpeg"
-              className="w-full align-middle rounded-t-lg object-cover h-full"
-              height={902}
-              width={802}
-            />
-            <blockquote
-              className="relative p-4 mb-4"
-              style={{
-                position: "absolute",
-                bottom: "0",
-                width: "100%",
-                backgroundColor: "rgba(0, 0, 0, 0.5)",
-              }}
+  return (
+    <section className="relative py-20 bg-gradient-to-b from-slate-900 to-slate-800">
+      <div className="container mx-auto px-4">
+        {/* Animated Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+          {services.map((service, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2, duration: 0.5 }}
+              viewport={{ once: true, margin: "-100px" }}
             >
-              <svg
-                preserveAspectRatio="none"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 583 95"
-                className="absolute left-0 w-full block"
-                style={{
-                  height: "95px",
-                  top: "-94px",
-                }}
-              ></svg>
-              <h4 className="text-xl font-bold text-white">
-                Top Notch Services
-              </h4>
-              <p className="text-md font-light text-white">
-                The Arctic Ocean freezes every winter and much of the sea-ice
-                then thaws every summer, and that process will continue whatever
-                happens.
+              <div className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10 hover:border-blue-400/30 transition-all duration-300 h-full">
+                <div className={`${service.color} w-14 h-14 rounded-xl mb-6 flex items-center justify-center`}>
+                  <service.icon className="text-2xl text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">{service.title}</h3>
+                <p className="text-gray-300 leading-relaxed">{service.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Innovation Section */}
+        <div className="flex flex-wrap items-center mt-20">
+          <div className="w-full lg:w-5/12 px-4 lg:order-1">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <div className="bg-blue-500/20 p-4 rounded-2xl inline-block mb-8">
+                <FaCodeBranch className="text-3xl text-blue-400" />
+              </div>
+              <h2 className="text-4xl font-bold text-white mb-6 leading-tight">
+                Next-Gen Autonomous Development Platform
+              </h2>
+              <p className="text-lg text-gray-300 mb-6">
+                Our integrated ecosystem combines simulation-grade validation tools with real-world data pipelines, 
+                accelerating your ADAS development cycle by 40%.
               </p>
-            </blockquote>
+              <div className="space-y-6">
+                <div className="flex items-start">
+                  <FaBrain className="text-blue-400 text-xl mt-1 mr-4" />
+                  <div>
+                    <h4 className="text-xl font-semibold text-white mb-2">Neural Network Optimization</h4>
+                    <p className="text-gray-300">Quantization-aware training and hardware-specific optimizations</p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <FaCarAlt className="text-blue-400 text-xl mt-1 mr-4" />
+                  <div>
+                    <h4 className="text-xl font-semibold text-white mb-2">Vehicle Dynamics Integration</h4>
+                    <p className="text-gray-300">Real-time CAN bus communication with predictive control models</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
+
+          <div className="w-full lg:w-7/12 px-4 mt-12 lg:mt-0">
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+    viewport={{ once: true }}
+    className="relative rounded-2xl overflow-hidden border border-white/10 h-[60vh] min-h-[400px] max-h-[700px]"
+  >
+    <div className="relative h-full w-full">
+      <Image
+        src="/images/picture2.jpeg"
+        alt="Autonomous Vehicle Interface"
+        fill
+        className="object-cover object-center"
+        sizes="(max-width: 768px) 100vw, 50vw"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/40 to-transparent" />
+      
+      <motion.div
+        animate={{ y: [-5, 5] }}
+        transition={{ duration: 3, repeat: Infinity, repeatType: "mirror" }}
+        className="absolute bottom-8 left-8 right-8 bg-white/5 backdrop-blur-sm p-6 rounded-xl border border-white/10"
+      >
+        <h3 className="text-xl font-bold text-white mb-2">Live Perception Visualization</h3>
+        <p className="text-gray-300">
+          Real-time sensor fusion display showing object detection, path prediction, 
+          and decision-making vectors
+        </p>
+      </motion.div>
+    </div>
+  </motion.div>
+</div>
         </div>
       </div>
-    </div>
-  </section>
-);
+
+      {/* Animated background elements */}
+      <div className="absolute inset-0 -z-1">
+        <div className="absolute top-20 left-0 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-40 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
+      </div>
+    </section>
+  );
+};
 
 export default Services;

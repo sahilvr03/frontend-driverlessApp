@@ -165,131 +165,121 @@ const Achievements = () => {
 
   return (
     <section
-      ref={achievementsSectionRef}
-      className="bg-gray-100 py-8"
-    >
-      <h2 className="text-3xl font-bold text-center mb-8">Our Achievements</h2>
-      <div className="relative">
+    ref={achievementsSectionRef}
+    className="bg-gradient-to-b from-slate-900 to-slate-800 py-16 relative overflow-hidden"
+  >
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 className="text-4xl font-bold text-center mb-12 text-white relative z-10">
+        Our Achievements
+        <span className="block w-16 h-1 bg-emerald-400 mx-auto mt-4 rounded-full" />
+      </h2>
+
+      <div className="relative group">
         {isMobile ? (
-          // Mobile Layout: Scrollable
           <div
             ref={scrollRef}
-            className="flex space-x-4 overflow-x-auto scrollbar-hide p-4"
+            className="flex space-x-4 overflow-x-auto scrollbar-hide px-4 pb-8 snap-x snap-mandatory"
             style={{ scrollBehavior: "smooth" }}
           >
             {achievementsData.map((achievement, index) => (
               <div
                 key={index}
-                className="max-w-[300px] bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow flex-shrink-0"
+                className="w-[85vw] flex-shrink-0 snap-center transform transition-all hover:scale-105"
               >
-                <Image
-                  src={achievement.image}
-                  alt={`${achievement.title} Image`}
-                  className="w-full h-40 object-cover rounded-md mb-4"
-                  height={902}
-                  width={802}
-                />
-                <h3 className="text-xl font-semibold mb-4">
-                  {achievement.title}
-                </h3>
-                <p className="text-gray-700 mb-4">{achievement.description}</p>
-                <div className="flex">
-                {Array.from({ length: 5 }).map((_, starIndex) => {
-                  const filled = starIndex < (achievement.rating || 0);  // Default to 0 if rating is undefined
-                  return (
-                    <svg
-                      key={starIndex}
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill={filled ? "gold" : "none"}
-                      viewBox="0 0 24 24"
-                      stroke="gold"
-                      strokeWidth={2}
-                      className="w-5 h-5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 17.75l-5.447 2.86c-.563.296-1.232-.17-1.122-.776l1.034-5.723L2.11 8.932c-.516-.515-.246-1.384.495-1.522l5.771-.838L9.5.694c.262-.533.896-.533 1.157 0l2.412 5.877 5.771.838c.741.138 1.011 1.007.495 1.522l-4.477 4.97 1.034 5.723c.11.605-.559 1.072-1.122.776L12 17.75z"
-                      />
-                    </svg>
-                  );
-                })}
-              </div>
-
+                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 h-full border border-white/20 shadow-xl hover:border-emerald-400/50 transition-all">
+                  <div className="relative h-48 rounded-xl overflow-hidden">
+                    <Image
+                      src={achievement.image}
+                      alt={achievement.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
+                  </div>
+                  <h3 className="text-xl font-bold mt-4 mb-2 text-emerald-400">
+                    {achievement.title}
+                  </h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    {achievement.description}
+                  </p>
+                  <div className="flex mt-4 space-x-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} filled={i < achievement.rating} />
+                    ))}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         ) : (
-          // Desktop Layout: Paginated with Transitions
-          <div className="flex items-center">
+          <>
             <button
-              className="p-2 bg-gray-200 rounded-full hover:bg-gray-300"
+              className="absolute -left-14 top-1/2 -translate-y-1/2 p-3 bg-emerald-500/20 rounded-full hover:bg-emerald-500/30 transition-all z-20"
               onClick={handlePrevious}
               disabled={currentIndex === 0}
             >
-              <AiOutlineLeft className="text-gray-600 text-xl" />
+              <AiOutlineLeft className="text-2xl text-emerald-400" />
             </button>
-            <div className="grid grid-cols-4 gap-4 flex-grow p-4">
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {achievementsData
                 .slice(currentIndex, currentIndex + achievementsPerPage)
                 .map((achievement, index) => (
                   <div
                     key={index}
-                    className={`bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow ${
-                      isVisible ? animationClasses[index] : ""
-                    }`}
+                    className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 h-full border border-white/20 shadow-xl hover:border-emerald-400/50 transition-all transform hover:-translate-y-2"
                   >
-                    <Image
-                      src={achievement.image}
-                      alt={`${achievement.title} Image`}
-                      className="w-full h-40 object-cover rounded-md mb-4"
-                        height={92}
-                  width={82}
-                    />
-                    <h3 className="text-xl font-semibold mb-4">
+                    <div className="relative h-48 rounded-xl overflow-hidden">
+                      <Image
+                        src={achievement.image}
+                        alt={achievement.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
+                    </div>
+                    <h3 className="text-xl font-bold mt-4 mb-2 text-emerald-400">
                       {achievement.title}
                     </h3>
-                    <p className="text-gray-700 mb-4">
+                    <p className="text-gray-300 text-sm leading-relaxed">
                       {achievement.description}
                     </p>
-                    <div className="flex">
-                    {Array.from({ length: 5 }).map((_, starIndex) => {
-                      const filled = starIndex < (achievement.rating || 0);  // Default to 0 if rating is undefined
-                      return (
-                        <svg
-                          key={starIndex}
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill={filled ? "gold" : "none"}
-                          viewBox="0 0 24 24"
-                          stroke="gold"
-                          strokeWidth={2}
-                          className="w-5 h-5"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12 17.75l-5.447 2.86c-.563.296-1.232-.17-1.122-.776l1.034-5.723L2.11 8.932c-.516-.515-.246-1.384.495-1.522l5.771-.838L9.5.694c.262-.533.896-.533 1.157 0l2.412 5.877 5.771.838c.741.138 1.011 1.007.495 1.522l-4.477 4.97 1.034 5.723c.11.605-.559 1.072-1.122.776L12 17.75z"
-                          />
-                        </svg>
-                      );
-                    })}
-                  </div>
-
+                    <div className="flex mt-4 space-x-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} filled={i < achievement.rating} />
+                      ))}
+                    </div>
                   </div>
                 ))}
             </div>
+
             <button
-              className="p-2 bg-gray-200 rounded-full hover:bg-gray-300"
+              className="absolute -right-14 top-1/2 -translate-y-1/2 p-3 bg-emerald-500/20 rounded-full hover:bg-emerald-500/30 transition-all z-20"
               onClick={handleNext}
               disabled={currentIndex === maxIndex}
             >
-              <AiOutlineRight className="text-gray-600 text-xl" />
+              <AiOutlineRight className="text-2xl text-emerald-400" />
             </button>
-          </div>
+          </>
         )}
       </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 };
+
+const Star = ({ filled }) => (
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  className={`w-5 h-5 transition-colors ${filled ? 'text-amber-400' : 'text-gray-600'}`}
+  fill="currentColor"
+>
+  <path d="M12 17.75l-5.447 2.86c-.563.296-1.232-.17-1.122-.776l1.034-5.723L2.11 8.932c-.516-.515-.246-1.384.495-1.522l5.771-.838L9.5.694c.262-.533.896-.533 1.157 0l2.412 5.877 5.771.838c.741.138 1.011 1.007.495 1.522l-4.477 4.97 1.034 5.723c.11.605-.559 1.072-1.122.776L12 17.75z" />
+</svg>
+);
+
 
 export default Achievements;
