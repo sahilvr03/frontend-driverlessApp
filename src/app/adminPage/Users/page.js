@@ -121,58 +121,63 @@ const UserInfo = () => {
       <div className="container mx-auto ">
         <h1 className="text-3xl font-bold mb-6 text-center">User Information</h1>
 
+        {/* Popup for editing user */}
         {editingUser && (
-          <div className="my-6 bg-white shadow-md rounded-lg p-6">
-            <h2 className="text-2xl font-bold mb-4">Edit User Information</h2>
-            <form onSubmit={(e) => handleUpdateUser(e, editingUser)}>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <input
-                  className="border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  type="text"
-                  value={newUserData.username}
-                  onChange={(e) => setNewUserData({ ...newUserData, username: e.target.value })}
-                  placeholder="Username"
-                  required
-                />
-                <input
-                  className="border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  type="email"
-                  value={newUserData.email}
-                  onChange={(e) => setNewUserData({ ...newUserData, email: e.target.value })}
-                  placeholder="Email"
-                  required
-                />
-                <input
-                  className="border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  type="text"
-                  value={newUserData.phonenumber}
-                  onChange={(e) => setNewUserData({ ...newUserData, phonenumber: e.target.value })}
-                  placeholder="Phone Number"
-                  required
-                />
-                <input
-                  className="border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  type="text"
-                  value={newUserData.role}
-                  onChange={(e) => setNewUserData({ ...newUserData, role: e.target.value })}
-                  placeholder="Role"
-                  required
-                />
-              </div>
-              <div className="mt-4 flex justify-between">
-                <button type="submit" className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition">Save</button>
-                <button
-                  type="button"
-                  className="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600 transition"
-                  onClick={() => setEditingUser(null)}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+            <div className="my-6 bg-white shadow-md rounded-lg p-6 w-full max-w-md">
+              <h2 className="text-2xl font-bold mb-4">Edit User Information</h2>
+              <form onSubmit={(e) => handleUpdateUser(e, editingUser)}>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <input
+                    className="border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type="text"
+                    value={newUserData.username}
+                    onChange={(e) => setNewUserData({ ...newUserData, username: e.target.value })}
+                    placeholder="Username"
+                    required
+                  />
+                  <input
+                    className="border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type="email"
+                    value={newUserData.email}
+                    onChange={(e) => setNewUserData({ ...newUserData, email: e.target.value })}
+                    placeholder="Email"
+                    required
+                  />
+                  <input
+                    className="border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type="text"
+                    value={newUserData.phonenumber}
+                    onChange={(e) => setNewUserData({ ...newUserData, phonenumber: e.target.value })}
+                    placeholder="Phone Number"
+                    required
+                  />
+                  <select
+                    className="border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={newUserData.role}
+                    onChange={(e) => setNewUserData({ ...newUserData, role: e.target.value })}
+                    required
+                  >
+                    <option value="">Select Role</option>
+                    <option value="admin">admin</option>
+                    <option value="user">user</option>
+                  </select>
+                </div>
+                <div className="mt-4 flex justify-between">
+                  <button type="submit" className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition">Save</button>
+                  <button
+                    type="button"
+                    className="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600 transition"
+                    onClick={() => setEditingUser(null)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         )}
-        
+
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white shadow-md rounded-lg border border-gray-200">
             <thead>

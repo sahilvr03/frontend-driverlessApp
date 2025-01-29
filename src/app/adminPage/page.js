@@ -278,7 +278,20 @@ export default function Dashboard() {
 
 
         <div className="flex-grow p-4 bg-gray-100 overflow-x-scroll">
-        <h1 className="text-3xl mb-7 font-bold text-gray-800">Admin Dashboard</h1>
+        <div className="flex justify-between items-center mb-6">
+            <h1 className="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
+            {view !== "dashboard" && (
+              <button
+                onClick={() => setView("dashboard")}
+                className="text-gray-700 hover:text-gray-900 flex items-center space-x-2"
+              >
+                <FaArrowLeft className="w-5 h-5" />
+                <span>Back</span>
+              </button>
+            )}
+          </div>
+
+        
           {loading ? <Loader /> : renderContent()}</div>
       </div>
     </ProtectedRoute>
