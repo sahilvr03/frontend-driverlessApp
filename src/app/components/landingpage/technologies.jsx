@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination, Autoplay } from "swiper/modules";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBadgeCheck, faShieldHalved, faMicrochip, faChartColumn,faVialVirus,faMagnifyingGlassArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faBadgeCheck, faShieldHalved, faMicrochip, faChartColumn,faVialVirus,faMagnifyingGlassArrowRight, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const Technologies = () => {
   return (
@@ -22,7 +22,7 @@ const Technologies = () => {
             </p>
             <div className="space-y-6">
               <div className="flex items-center space-x-4">
-                <FontAwesomeIcon icon={faBadgeCheck} className="h-8 w-8 text-emerald-500" />
+                <FontAwesomeIcon icon={faCheck} className="h-8 w-8 text-emerald-500" />
                 <span className="text-lg font-semibold text-gray-800">24/7 Autonomous Operations</span>
               </div>
               <div className="flex items-center space-x-4">

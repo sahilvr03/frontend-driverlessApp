@@ -138,7 +138,7 @@ const Navbar = () => {
           <Link href="/#about" className="block py-2 hover:text-gray-300">
             About Us
           </Link>
-          <Link href="/#Technology" className="block py-2 hover:text-gray-300">
+          <Link href="../studentPage/tech" className="block py-2 hover:text-gray-300">
             Technology
           </Link>
           
@@ -155,7 +155,7 @@ const Navbar = () => {
                 href="../studentPage/tech"
                 className="block py-2 hover:text-gray-300"
               >
-                tech
+                Technology
               </Link>
               <Link
                 href="../studentPage/articlePage"
