@@ -1,16 +1,23 @@
-import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY); // Replace with your actual Resend API key
+import nodemailer from 'nodemailer';
 
 export async function POST(request) {
   try {
-    const body = await request.json(); // Parse the request body
+    const body = await request.json();
     const { firstName, lastName, email, contactNumber, organization, url, purpose } = body;
 
-    // Sending the email using Resend
-    const response = await resend.emails.send({
-      from: email, // Replace with a verified sender email address
-      to: ['ewe111.vijay@gmail.com'], // Recipient's email
+    // SMTP Transporter Configuration (Gmail Example)
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'benzenering032@gmail.com', // Your Gmail
+        pass: 'kpfa yprh zdev kafn' // App password (not regular Gmail password)
+      },
+    });
+
+    // Email Options
+    const mailOptions = {
+      from: process.env.GMAIL_USER,
+      to: 'fatima.mansoorali03@gmail.com', // Recipient
       subject: 'New Contact Submission',
       html: `
         <p>Hello ${firstName} ${lastName},</p>
@@ -24,23 +31,22 @@ export async function POST(request) {
         </ul>
         <p>We will get back to you shortly!</p>
       `,
+    };
+
+    // Send Email
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent:', info.response);
+
+    return new Response(JSON.stringify({ message: 'Email sent successfully!' }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
     });
 
-    return new Response(
-      JSON.stringify({ message: 'Email sent successfully!', response }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
   } catch (error) {
     console.error('Error sending email:', error);
-    return new Response(
-      JSON.stringify({ error: 'Failed to send email', details: error.message }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ error: 'Failed to send email', details: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }
