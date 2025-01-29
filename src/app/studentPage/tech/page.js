@@ -124,19 +124,18 @@ export default function TechnologyPage() {
             <div className="relative h-96 bg-gray-700 rounded-3xl overflow-hidden">
               {/* Add 3D visualization or interactive demo here */}
                <div className="absolute inset-0 overflow-hidden">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="h-full w-full object-cover"
-        >
-          <source
-            src="/videos/video.mp4"
-            type="video/mp4"
-          />
-        </video>
+               <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="h-full w-full object-cover"
+              >
+                <source
+                  src="/videos/repo1.mp4"
+                  type="video/mp4"
+                />
+              </video>
         <div className="absolute inset-0 bg-black/60 backdrop-blur-[0px]" />
       </div>
             </div>

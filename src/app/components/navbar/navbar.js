@@ -170,6 +170,12 @@ const Navbar = () => {
               >
                 Product
               </Link>
+              <Link
+                href="../studentPage/termsPage"
+                className="block py-2 hover:text-gray-300"
+              >
+                Terms
+              </Link>
               
               {user.role === "admin" && (
                 <Link href="/adminPage" className="block py-2 hover:text-gray-300">
