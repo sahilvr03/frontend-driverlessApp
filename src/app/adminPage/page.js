@@ -165,8 +165,8 @@ export default function Dashboard() {
   return (
     <ProtectedRoute allowedRoles={['admin']}>
       <div className="flex min-h-screen">
-        <AdminSidebar handleViewChange={handleViewChange} />
-        <div className="flex-1 p-8 bg-gray-100">
+        <AdminSidebar handleViewChange={handleViewChange} /> {/* Passing the handleViewChange function as prop */}
+        <div className="flex-1 p-8 bg-gray-100 overflow-x-scroll">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
             {view !== "dashboard" && (

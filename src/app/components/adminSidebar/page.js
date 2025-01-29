@@ -6,11 +6,13 @@ import Image from "next/image";
 import { useUser } from "../../context/UserContext"; // Assuming you have user context
 import { db } from '../../firebaseConfig/auth'; // Adjust according to your project structure
 import { doc, getDoc } from "firebase/firestore"; // Firebase Firestore functions
+import PropTypes from 'prop-types'; // Import PropTypes
 
-export default function AdminSidebar({  }) {
+export default function AdminSidebar({ handleViewChange }) {
   const { user } = useUser(); // Assuming user context provides user data
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
+
   useEffect(() => {
     const fetchUserData = async () => {
       if (user?.uid) {
@@ -27,7 +29,7 @@ export default function AdminSidebar({  }) {
       }
     };
     fetchUserData();
-  }, [user]);        
+  }, [user]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -52,12 +54,7 @@ export default function AdminSidebar({  }) {
         <div className="mb-8 text-center">
           {userProfile ? (
             <>
-              {/* <Image
-                src={userProfile.profilePicUrl || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"}
-                alt="User Icon"
-                className="w-24 h-24 rounded-full border-2 object-cover border-white"
-              /> */}
-              <p className="mt-2 text-sm font-semibold">{userProfile.username}</p>
+              <p className="mt-2 text-2xl font-semibold">{userProfile.username}</p>
             </>
           ) : (
             <p>Loading...</p>
@@ -66,15 +63,15 @@ export default function AdminSidebar({  }) {
 
         {/* Dashboard Text */}
         <button
-            className="w-11/12 py-3 px-4 hover:bg-gray-900 border-b border-white text-center text-xl font-semibold"
-            onClick={() => handleViewChange("dashboard")}
-          >
-            Dashboard
-          </button>
+          className="w-11/12 py-3 px-4 hover:bg-gray-900 border-b border-white text-center text-xl font-semibold"
+          onClick={() => handleViewChange("dashboard")}
+        >
+          Dashboard
+        </button>
 
         {/* Sidebar Links */}
         <nav className="w-full flex flex-col items-center space-y-2">
-        <button
+          <button
             className="w-11/12 py-3 px-4 hover:bg-gray-700 border-b border-white text-center text-sm font-semibold"
             onClick={() => handleViewChange("upload")}
           >
@@ -109,9 +106,13 @@ export default function AdminSidebar({  }) {
           >
             CREATE ARTICLES
           </button>
-         
         </nav>
       </div>
     </>
   );
 }
+
+// PropTypes validation
+AdminSidebar.propTypes = {
+  handleViewChange: PropTypes.func.isRequired,
+};
