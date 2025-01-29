@@ -151,12 +151,7 @@ const Navbar = () => {
               >
                 Services
               </Link>
-              <Link
-                href="../studentPage/tech"
-                className="block py-2 hover:text-gray-300"
-              >
-                Technology
-              </Link>
+              
               <Link
                 href="../studentPage/articlePage"
                 className="block py-2 hover:text-gray-300"
