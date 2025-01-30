@@ -16,7 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "DRIVERLESS-WEB",
+  title: "Rcai-mobility",
   description: "Experience the future of transportation with our cutting-edge driverless technology. Offering safe, efficient, and eco-friendly autonomous solutions for a smarter tomorrow.",
 };
 

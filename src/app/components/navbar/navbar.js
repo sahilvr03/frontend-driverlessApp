@@ -39,9 +39,42 @@ const Navbar = () => {
   return (
     <nav className="bg-gray-800 text-white p-4 sticky top-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
-        <a href="#" className="text-xl font-bold">
-          SelfDriveWeb
-        </a>
+    
+      <a href="#" className="inline-flex items-center gap-2 group">
+  <svg 
+    className="w-8 h-8 text-emerald-400 group-hover:text-emerald-500 transition-colors" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2"
+  >
+    {/* Car Outline */}
+    <path 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      d="M8 10h-2v4h2v-4zm6 0h-2v4h2v-4zm5-6v12a2 2 0 01-2 2H5a2 2 0 01-2-2V4a2 2 0 012-2h14a2 2 0 012 2z"
+    />
+    {/* Animated Fill */}
+    <path 
+      fill="currentColor" 
+      className="animate-fill-unfill opacity-0" 
+      d="M5 14h14v-3H5v3z" 
+    />
+  </svg>
+  <span className="font-poppins text-3xl font-extrabold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent tracking-tighter group-hover:from-green-500 group-hover:to-emerald-500 transition-all duration-300">
+    RCAI<span className="font-light">Mobility</span>
+  </span>
+</a>
+
+
+{/* <a href="#" class="inline-flex items-center gap-2 group">
+  <svg class="w-8 h-8 text-emerald-600 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+  </svg>
+  <span class="font-poppins text-3xl font-extrabold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent tracking-tighter group-hover:from-green-500 group-hover:to-emerald-500 transition-all duration-300">
+    RCAI<span class="font-light">Mobility</span>
+  </span>
+</a> */}
         <div className="flex items-center lg:hidden ml-auto">
           <button className="text-white block" onClick={toggleMenu}>
             <svg
