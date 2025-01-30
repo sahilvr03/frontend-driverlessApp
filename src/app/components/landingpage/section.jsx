@@ -90,7 +90,7 @@ const Section = () => {
             </p>
           </div>
 
-          <motion.div 
+          {/* <motion.div 
             className="flex flex-col sm:flex-row gap-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -104,7 +104,7 @@ const Section = () => {
               <span className="absolute inset-0 bg-[#00ff9d] opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
               <span className="hologram-text">TECH SPECS</span>
             </button>
-          </motion.div>
+          </motion.div> */}
         </motion.div>
 
         <motion.div
