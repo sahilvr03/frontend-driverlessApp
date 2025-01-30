@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState, useRef } from 'react';
-import AdminSidebar from '@/app/components/adminSidebar/page';
+
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ProtectedRoute from '@/app/protectedRoute/protectedRoute';
 import Image from "next/image";
