@@ -22,8 +22,8 @@ const Landingpage = () => {
       {/* Features Section */}
       
       {/* Technologies Section */}
-      
       <Technologies />
+      <Gallery/>
       <Features />
       {/* About Us Section */}
       <Demo/>

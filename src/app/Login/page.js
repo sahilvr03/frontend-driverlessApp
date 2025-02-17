@@ -163,11 +163,11 @@ const AuthForm = () => {
                     >
                       Login
                     </button>
-                    <div className="flex justify-center mt-4">
+                    {/* <div className="flex justify-center mt-4">
                       <FaFacebookSquare className="w-8 h-8 mx-2 cursor-pointer" />
                       <FcGoogle className="w-8 h-8 mx-2 cursor-pointer" />
                       <FaApple className="w-8 h-8 mx-2 cursor-pointer" />
-                    </div>
+                    </div> */}
                     <p className="text-center text-sm mt-4">
                       Dont have an account?{" "}
                       <span
@@ -244,11 +244,11 @@ const AuthForm = () => {
                     >
                       Sign Up
                     </button>
-                    <div className="flex justify-center mt-4">
+                    {/* <div className="flex justify-center mt-4">
                       <FaFacebookSquare className="w-8 h-8 mx-2 cursor-pointer" />
                       <FcGoogle className="w-8 h-8 mx-2 cursor-pointer" />
                       <FaApple className="w-8 h-8 mx-2 cursor-pointer" />
-                    </div>
+                    </div> */}
                     <p className="text-center text-sm mt-4">
                       Already have an account?{" "}
                       <span
@@ -369,7 +369,7 @@ const AuthForm = () => {
                       />
                     </div>
                     <div className="mb-6">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="profilePic">
+                {/* <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="profilePic">
                   Profile Picture
                 </label>
                 <input
@@ -377,7 +377,7 @@ const AuthForm = () => {
                   id="profilePic"
                   onChange={(e) => setProfilePic(e.target.files[0])}
                   className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none"
-                />
+                /> */}
               </div>
                     <button
                       type="submit"
@@ -402,11 +402,11 @@ const AuthForm = () => {
                 >
                   {isLogin ? "Sign Up" : "Login"}
                 </button>
-                <div className="flex justify-center mt-4">
+                {/* <div className="flex justify-center mt-4">
                   <FaFacebookSquare className="w-8 h-8 mx-2 cursor-pointer" />
                   <FcGoogle className="w-8 h-8 mx-2 cursor-pointer" />
                   <FaApple className="w-8 h-8 mx-2 cursor-pointer" />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

@@ -2,15 +2,29 @@
 import React, { useState, useEffect, useRef } from "react";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import Image from "next/image";
+import { motion, useInView } from 'framer-motion';
 
 const Achievements = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animationClasses, setAnimationClasses] = useState([]);
   const [isVisible, setIsVisible] = useState(false); // Track visibility
-  const achievementsPerPage = 4;
+  // const achievementsPerPage = 4;
   const scrollRef = useRef(null);
   const achievementsSectionRef = useRef(null); // Ref for the achievements section
+ 
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartX, setDragStartX] = useState(0);
+  const achievementsRef = useRef(null);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  
+
+ 
+
+
+
+  
 
   const achievementsData = [
     {
@@ -98,188 +112,183 @@ const Achievements = () => {
         rating: 3,
     },
   ];
+  const achievementsPerPage = isMobile ? 1 : 4;
   const maxIndex = Math.max(0, achievementsData.length - achievementsPerPage);
 
-  const handleResize = () => {
-    setIsMobile(window.innerWidth < 768);
-  };
+ 
 
+  // Responsive handling
   useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (mobile !== isMobile) setCurrentIndex(0);
+    };
+
     handleResize();
     window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isMobile]);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  // Touch/drag handling
+  const handleDragStart = (e) => {
+    setIsDragging(true);
+    setDragStartX(e.clientX || e.touches[0].clientX);
+  };
 
+  const handleDragEnd = (e) => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    
+    const endX = e.clientX || e.changedTouches[0].clientX;
+    const deltaX = dragStartX - endX;
+
+    if (Math.abs(deltaX) > 30) {
+      deltaX > 0 ? handleNext() : handlePrevious();
+    }
+  };
+
+  // Navigation controls
   const handleNext = () => {
-    setCurrentIndex((prev) =>
-      Math.min(prev + achievementsPerPage, maxIndex)
-    );
+    setCurrentIndex(prev => Math.min(prev + achievementsPerPage, maxIndex));
   };
 
   const handlePrevious = () => {
-    setCurrentIndex((prev) => Math.max(prev - achievementsPerPage, 0));
+    setCurrentIndex(prev => Math.max(prev - achievementsPerPage, 0));
   };
 
-  // Detect visibility of the achievements section using IntersectionObserver
-  useEffect(() => {
-    const options = {
-      root: null, // Observe in the viewport
-      rootMargin: "0px",
-      threshold: 0.5, // Trigger when 50% of the section is in view
-    };
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      options
-    );
-
-    if (achievementsSectionRef.current) {
-      observer.observe(achievementsSectionRef.current);
-    }
-
-    return () => {
-      if (achievementsSectionRef.current) {
-        observer.unobserve(achievementsSectionRef.current);
-      }
-    };
-  }, []);
-
-  // Handle animation classes when section becomes visible
-  useEffect(() => {
-    if (!isMobile && isVisible) {
-      setAnimationClasses([
-        "animate-slide-right",
-        "animate-slide-top",
-        "animate-slide-bottom",
-        "animate-slide-left",
-      ]);
-    } else {
-      setAnimationClasses([]);
-    }
-  }, [isVisible, isMobile, currentIndex]);
+  // Animation variants
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.1, duration: 0.6 }
+    })
+  };
 
   return (
-    <section
-    ref={achievementsSectionRef}
-    className="bg-gradient-to-b from-slate-900 to-slate-800 py-16 relative overflow-hidden"
-  >
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 className="text-4xl font-bold text-center mb-12 text-white relative z-10">
-        Our Achievements
-        <span className="block w-16 h-1 bg-emerald-400 mx-auto mt-4 rounded-full" />
-      </h2>
+    <section 
+      ref={sectionRef}
+      className="relative py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-4">
+            Engineering Milestones
+          </h2>
+          <p className="text-lg text-slate-300 max-w-2xl mx-auto">
+            Pioneering advancements in autonomous vehicle technology through innovative solutions
+          </p>
+        </motion.div>
 
-      <div className="relative group">
-        {isMobile ? (
-          <div
-            ref={scrollRef}
-            className="flex space-x-4 overflow-x-auto scrollbar-hide px-4 pb-8 snap-x snap-mandatory"
-            style={{ scrollBehavior: "smooth" }}
+        <div 
+          className="relative group"
+          onMouseDown={handleDragStart}
+          onMouseUp={handleDragEnd}
+          onTouchStart={handleDragStart}
+          onTouchEnd={handleDragEnd}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/50 via-transparent to-slate-900/50 z-20 pointer-events-none" />
+
+          <div 
+            ref={achievementsRef}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative"
           >
-            {achievementsData.map((achievement, index) => (
-              <div
-                key={index}
-                className="w-[85vw] flex-shrink-0 snap-center transform transition-all hover:scale-105"
-              >
-                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 h-full border border-white/20 shadow-xl hover:border-emerald-400/50 transition-all">
-                  <div className="relative h-48 rounded-xl overflow-hidden">
-                    <Image
-                      src={achievement.image}
-                      alt={achievement.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
-                  </div>
-                  <h3 className="text-xl font-bold mt-4 mb-2 text-emerald-400">
-                    {achievement.title}
-                  </h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    {achievement.description}
-                  </p>
-                  <div className="flex mt-4 space-x-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} filled={i < achievement.rating} />
+            {achievementsData
+              .slice(currentIndex, currentIndex + achievementsPerPage)
+              .map((achievement, i) => (
+                <motion.div
+                  key={i}
+                  custom={i}
+                  initial="hidden"
+                  animate={isInView ? "visible" : "hidden"}
+                  variants={cardVariants}
+                  className="relative bg-white/5 rounded-2xl p-6 border border-slate-700/50 hover:border-emerald-400/30 transition-all duration-300 shadow-2xl hover:shadow-emerald-500/10">
+                <div className="relative h-52 rounded-xl overflow-hidden">
+                  <Image
+                    src={achievement.image}
+                    alt={achievement.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent" />
+                  <div className="absolute bottom-4 left-4 flex items-center space-x-1">
+                    {[...Array(5)].map((_, idx) => (
+                      <div
+                        key={idx}
+                        className={`w-2 h-2 rounded-full ${idx < achievement.rating ? 'bg-emerald-400' : 'bg-slate-600'}`}
+                      />
                     ))}
                   </div>
                 </div>
-              </div>
+                <h3 className="text-xl font-semibold mt-5 mb-3 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                  {achievement.title}
+                </h3>
+                <p className="text-slate-300 text-sm leading-relaxed font-light">
+                  {achievement.description}
+                </p>
+                <div className="absolute top-4 right-4 flex items-center justify-center w-10 h-10 rounded-full bg-slate-800/50 backdrop-blur-sm text-emerald-400 font-bold text-sm">
+                  0{i + 1}
+                </div>
+              </motion.div>
             ))}
-          </div>
-        ) : (
-          <>
+        </div>
+
+       {/* Improved Navigation Buttons */}
+       <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between px-4 pointer-events-none">
             <button
-              className="absolute -left-14 top-1/2 -translate-y-1/2 p-3 bg-emerald-500/20 rounded-full hover:bg-emerald-500/30 transition-all z-20"
+              className={`p-3 rounded-full bg-emerald-400/10 backdrop-blur-lg hover:bg-emerald-400/20 transition-all pointer-events-auto 
+                ${currentIndex === 0 ? 'opacity-40 cursor-not-allowed hover:bg-emerald-400/10' : 'hover:scale-110'}`}
               onClick={handlePrevious}
               disabled={currentIndex === 0}
+              aria-label="Previous achievements"
             >
               <AiOutlineLeft className="text-2xl text-emerald-400" />
             </button>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {achievementsData
-                .slice(currentIndex, currentIndex + achievementsPerPage)
-                .map((achievement, index) => (
-                  <div
-                    key={index}
-                    className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 h-full border border-white/20 shadow-xl hover:border-emerald-400/50 transition-all transform hover:-translate-y-2"
-                  >
-                    <div className="relative h-48 rounded-xl overflow-hidden">
-                      <Image
-                        src={achievement.image}
-                        alt={achievement.title}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
-                    </div>
-                    <h3 className="text-xl font-bold mt-4 mb-2 text-emerald-400">
-                      {achievement.title}
-                    </h3>
-                    <p className="text-gray-300 text-sm leading-relaxed">
-                      {achievement.description}
-                    </p>
-                    <div className="flex mt-4 space-x-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} filled={i < achievement.rating} />
-                      ))}
-                    </div>
-                  </div>
-                ))}
-            </div>
-
             <button
-              className="absolute -right-14 top-1/2 -translate-y-1/2 p-3 bg-emerald-500/20 rounded-full hover:bg-emerald-500/30 transition-all z-20"
+              className={`p-3 rounded-full bg-emerald-400/10 backdrop-blur-lg hover:bg-emerald-400/20 transition-all pointer-events-auto 
+                ${currentIndex === maxIndex ? 'opacity-40 cursor-not-allowed hover:bg-emerald-400/10' : 'hover:scale-110'}`}
               onClick={handleNext}
               disabled={currentIndex === maxIndex}
+              aria-label="Next achievements"
             >
               <AiOutlineRight className="text-2xl text-emerald-400" />
             </button>
-          </>
-        )}
+          </div>
+        </div>
+
+        {/* Enhanced Progress Indicators */}
+        <div className="flex justify-center mt-12 space-x-2">
+          {Array.from({ length: Math.ceil(achievementsData.length / achievementsPerPage) }).map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentIndex(idx * achievementsPerPage)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                currentIndex === idx * achievementsPerPage 
+                  ? 'bg-emerald-400 w-8' 
+                  : 'bg-slate-600 w-4 hover:w-6'
+              }`}
+              aria-label={`Go to page ${idx + 1}`}
+            />
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+
+      {/* Animated background elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-32 -left-48 w-96 h-96 bg-emerald-400/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-32 -right-48 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl animate-pulse delay-1000" />
+      </div>
+    </section>
+  );
 };
-
-const Star = ({ filled }) => (
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 24 24"
-  className={`w-5 h-5 transition-colors ${filled ? 'text-amber-400' : 'text-gray-600'}`}
-  fill="currentColor"
->
-  <path d="M12 17.75l-5.447 2.86c-.563.296-1.232-.17-1.122-.776l1.034-5.723L2.11 8.932c-.516-.515-.246-1.384.495-1.522l5.771-.838L9.5.694c.262-.533.896-.533 1.157 0l2.412 5.877 5.771.838c.741.138 1.011 1.007.495 1.522l-4.477 4.97 1.034 5.723c.11.605-.559 1.072-1.122.776L12 17.75z" />
-</svg>
-);
-
 
 export default Achievements;
