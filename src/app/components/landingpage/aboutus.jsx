@@ -73,11 +73,9 @@ const TeamCard = ({ member }) => {
           <Image
             alt={member.name}
             src={member.image}
-            layout="responsive"
             width={128}
             height={128}
-            objectFit="cover"
-            className="rounded-full group-hover:scale-105 transition-transform duration-300"
+            className="rounded-full group-hover:scale-105 transition-transform duration-300 object-cover"
           />
         </div>
 

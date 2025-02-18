@@ -135,6 +135,38 @@ const CommunitySpotlight = () => {
           </button>
         </div>
       </section>
+      <section className="relative py-16 bg-gray-900 text-white">
+      <div className="container mx-auto px-6 md:px-12 lg:px-16 text-center">
+        {/* Title */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6"
+        >
+          <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+            The Peoples Autonomous Revolution
+          </span>
+        </motion.h1>
+
+        {/* Subtitle */}
+        <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10">
+          Driverless Car on Pakistan’s Roads! | Karachi Engineering Students Make History | Public News  
+        </p>
+
+        {/* Featured Video */}
+        <div className="relative mx-auto max-w-4xl aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/-PCkmUXa8i4"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            className="rounded-2xl"
+          />
+        </div>
+      </div>
+    </section>
     </div>
   );
 };
