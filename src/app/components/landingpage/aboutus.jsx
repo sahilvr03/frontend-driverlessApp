@@ -18,9 +18,9 @@ const Team = () => (
       <div className="flex pb-10 overflow-x-auto scrollbar-hide space-x-8 px-2 justify-center h-[500px] overflow-hidden">
         {[
           { name: 'Dr. Muhammad Khurram', role: 'Professor at NED University of Engineering and Technology - Co-Founder Crop2x pvt ltd - Startup Advisor - Change Specialist for AI', image: '/images/sir.png', linkedin: 'https://www.linkedin.com/in/revelation-rsc/' },
-          { name: 'Ansharah Mobeen', role: 'GIS Specialist at Crop2x Ltd | Team Lead | Expert in Spatial Analysis, Mapping Technologies & Data-Driven Decision-Making | Agriculture & Agribusiness Integration ', image: '/images/ansharah.png', linkedin: 'https://www.linkedin.com/in/ansharahmobeen' },
+          { name: 'Ansharah Mobeen', role: 'GIS Specialist | Team Lead | Expert in Spatial Analysis, Mapping Technologies & Data-Driven Decision-Making | Agriculture & Agribusiness Integration ', image: '/images/ansharah.png', linkedin: 'https://www.linkedin.com/in/ansharahmobeen' },
           { name: 'Fatima Saud', role: 'Research Assistant @NCAI-NEDUET | Data Scientist | Autonomous Vehicle Project | Computer vision | Generative AI', image: '/images/fatima.png', linkedin: 'https://www.linkedin.com/in/fatimasaud' },
-          { name: 'Inzamam Khan', role: 'Engineer | Data Scientist | Embedded AI Hardware & Development | Robotic Software Development | IoT | Power Electronics | Hardware Design', image: '/images/inz.png', linkedin: 'https://www.linkedin.com/in/inzamamkhan' },
+          { name: 'Inzamam Khan', role: 'Research & Development Engineer | Data scientist| Embedded AI Hardware & Development | Embedded Systems | Robotic SW Development & Integration | OT| Machine Learning & Computer Vision | IoT | Electronics | HW Design', image: '/images/inz.png', linkedin: 'https://www.linkedin.com/in/inzamamkhan' },
           { name: 'Aleema Saleem', role:  "AI Engineer @Crop2x | xResearch.Assitant@NCAI-SCL | xIntern@sawayra | NEDUET'23 ", image: '/images/aleema.png', linkedin: 'https://www.linkedin.com/in/aleemasaleem' }
         ].map((member, index) => (
           <div 
