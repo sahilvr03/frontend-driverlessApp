@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { FaArrowLeft, FaUserAlt, FaUsers, FaClipboardList, FaBlog, FaShoppingCart, FaMapMarkedAlt, FaFileUpload } from "react-icons/fa"; // Improved Icons
+import { FaArrowLeft, FaUserAlt, FaUsers, FaClipboardList, FaBlog, FaShoppingCart, FaMapMarkedAlt, FaFileUpload, FaTags } from "react-icons/fa"; // Improved Icons
 import ProtectedRoute from "../protectedRoute/protectedRoute";
 import Posts from "./posts/page";
 import AdminBlogs from "./BlogPost/page";
@@ -14,6 +14,7 @@ import { useUser } from "../context/UserContext"; // Assuming you have user cont
 import { db } from '../firebaseConfig/auth'; // Adjust according to your project structure
 import { doc, getDoc } from "firebase/firestore"; // Firebase Firestore functions
 import Image from "next/image";
+import MentionForm from "./mentionsupload/page";
 
 export default function Dashboard() {
   const { user } = useUser(); // Assuming user context provides user data
@@ -164,6 +165,12 @@ export default function Dashboard() {
               <h2 className="text-xl font-bold">Total Maps</h2>
               <a className="block mt-4 text-sm underline">Click here</a>
             </div>
+            <div className="bg-[#e231cb] text-white rounded-lg shadow-lg p-6 cursor-pointer hover:shadow-xl transform hover:scale-105 transition-all"
+              onClick={() => handleViewChange("mentions")}>
+              <FaTags className="text-4xl mb-4" />
+              <h2 className="text-xl font-bold">Mentions</h2>
+              <a className="block mt-4 text-sm underline">Click here</a>
+            </div>
           </div>
         );
       case "posts":
@@ -176,6 +183,8 @@ export default function Dashboard() {
         return <AdminUploadPage />;
       case "users":
         return <UserInfo />;
+      case "mentions":
+        return <MentionForm />;
       default:
         return null;
     }

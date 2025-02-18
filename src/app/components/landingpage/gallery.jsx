@@ -1,14 +1,11 @@
 "use client";
-import { faYoutube, faLinkedin, faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/pagination';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 const CommunitySpotlight = () => {
+  const [showMore, setShowMore] = useState(false);
+  
   const mediaContent = [
     {
       type: 'video',
@@ -73,21 +70,12 @@ const CommunitySpotlight = () => {
       title: 'Karachi to Welcome its first AI-Driverless Car Soon',
       image: '/images/kk.jpg'
     },
-    
-   
-    // Add other links with appropriate metadata
   ];
-  
- 
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      {/* Hero Section */}
-     
-
-      {/* Media Grid */}
       <section className="py-20 container mx-auto px-4">
-      <div className="text-center mb-16">
+        <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             What Others Are Saying About Us
           </h2>
@@ -95,17 +83,17 @@ const CommunitySpotlight = () => {
             Explore blogs, videos, and articles from the community discussing our innovations and projects.
           </p>
         </div>
-
+        
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {mediaContent.map((item, index) => (
-            <motion.div 
+          {mediaContent.slice(0, showMore ? mediaContent.length : 3).map((item, index) => (
+            <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
               className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all"
             >
-              {item.type === 'video' ? (
+              {item.type === "video" ? (
                 <div className="aspect-video relative">
                   <iframe
                     src={item.source}
@@ -131,113 +119,22 @@ const CommunitySpotlight = () => {
                   className="mt-4 inline-flex items-center text-green-600 hover:text-green-700 font-medium"
                 >
                   Read Full Story
-                  <svg className="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"/>
-                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/>
-                  </svg>
                 </a>
               </div>
             </motion.div>
           ))}
         </div>
-      </section>
-     
-    <section className="relative py-16 bg-gray-900 text-white">
-      <div className="container mx-auto px-6 md:px-12 lg:px-16 text-center">
-        {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6"
-        >
-          <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
-            The Peoples Autonomous Revolution
-          </span>
-        </motion.h1>
 
-        {/* Subtitle */}
-        <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10">
-          Driverless Car on Pakistan’s Roads! | Karachi Engineering Students Make History | Public News  
-        </p>
-
-        {/* Featured Video */}
-        <div className="relative mx-auto max-w-4xl aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
-          <iframe
-            width="100%"
-            height="100%"
-            src="https://www.youtube.com/embed/Y9Kiq2X4Ut0"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            className="rounded-2xl"
-          />
-        </div>
-      </div>
-    </section>
- 
-
-
-      {/* Social Media Carousel */}
-      {/* <section className="py-20 bg-slate-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-green-500 bg-clip-text text-transparent">
-            Social Media Buzz
-          </h2>
-
-          <Swiper
-            slidesPerView={1}
-            spaceBetween={30}
-            breakpoints={{
-              640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-            }}
-            autoplay={{ delay: 3000 }}
-            modules={[Autoplay]}
-            className="pb-14"
+        {/* See More Button */}
+        <div className="text-center mt-8">
+          <button
+            onClick={() => setShowMore(!showMore)}
+            className="px-6 py-3 text-white bg-green-600 rounded-full hover:bg-green-700 transition-all"
           >
-            {[
-              {
-                platform: 'linkedin',
-                url: 'https://www.linkedin.com/posts/startup-pakistan_selfdrivingcar-aiinnovation-pakistantech-activity-7296842066364362752-viZc',
-                content: "Witness the future of Pakistani tech with these groundbreaking innovations in autonomous mobility..."
-              },
-              {
-                platform: 'facebook',
-                url: 'https://www.facebook.com/100064861260620/posts/1037358771769489/',
-                content: "Local students are putting Pakistan on the global autonomous vehicles map..."
-              },
-              // Add other social posts
-            ].map((post, index) => (
-              <SwiperSlide key={index}>
-                <SocialCard {...post} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+            {showMore ? "See Less" : "See More"}
+          </button>
         </div>
-      </section> */}
-
-      {/* CTA Section */}
-      {/* <section className="py-20 bg-slate-900 text-center">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-white mb-8">
-            Join the Movement
-          </h2>
-          <p className="text-xl text-blue-200 mb-12 max-w-2xl mx-auto">
-            Share your experiences, write about our technology, or create content to be featured here!
-          </p>
-          <div className="flex justify-center gap-6">
-            <button className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all flex items-center">
-              <FontAwesomeIcon icon={faYoutube} className="mr-3" />
-              Submit Your Video
-            </button>
-            <button className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all flex items-center">
-              <FontAwesomeIcon icon={faLinkedin} className="mr-3" />
-              Share Your Story
-            </button>
-          </div>
-        </div>
-      </section> */}
+      </section>
     </div>
   );
 };
