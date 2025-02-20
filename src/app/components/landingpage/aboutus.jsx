@@ -112,14 +112,14 @@ const TeamCard = ({ member }) => {
         >
           <FaLinkedinIn className="w-5 h-5" />
         </a>
-        <a
+        {/* <a
           href={member.linkedin}
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm text-gray-300 underline hover:text-blue-400 transition-all duration-300"
         >
           LinkedIn Profile
-        </a>
+        </a> */}
       </div>
     </div>
   );
