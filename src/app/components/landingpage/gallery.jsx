@@ -22,6 +22,13 @@ const CommunitySpotlight = () => {
       platform: 'YouTube'
     }, 
     {
+      type: 'video',
+      url: 'https://www.youtube.com/embed/LZI1qJs1yF4',
+      source: 'https://www.youtube.com/embed/LZI1qJs1yF4',
+      title: 'NED Students Developing Pakistan\'s First Self-Driving Car',
+      platform: 'YouTube'
+    }, 
+    {
       type: 'article',
       url: 'https://propakistani.pk/2025/02/14/ned-students-working-to-launch-pakistans-first-self-driving-car-within-6-months/amp/',
       title: 'Breaking: Pakistani Students Challenge Global Auto Giants',
@@ -165,6 +172,7 @@ const CommunitySpotlight = () => {
             className="rounded-2xl"
           />
         </div>
+       
       </div>
     </section>
     </div>
