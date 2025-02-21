@@ -14,21 +14,22 @@ const Team = () => {
     },
     {
       name: "Ansharah Mobeen",
-      role: " Team Lead | Expert in Spatial Analysis, Mapping Technologies & Data-Driven Decision-Making | Agriculture & Agribusiness Integration",
+      role: " Team Lead | Expert in Spatial Analysis, Mapping Technologies & Data-Driven Decision-Making ",
       image: "/images/ansharah.png",
       linkedin: "https://www.linkedin.com/in/ansharahmobeen",
+    },
+   
+    {
+      name: "Inzamam Khan",
+      role: "Research & Development Engineer | Data scientist| Embedded AI Hardware & Development | Embedded Systems | Robotic SW Development & Integration | OT | Machine Learning & Computer Vision | IoT | Electronics | HW Design",
+      image: "/images/inz.png",
+      linkedin: "https://www.linkedin.com/in/i    nzamamkhan",
     },
     {
       name: "Fatima Saud",
       role: "Research Assistant @NCAI-NEDUET | Data Scientist | Autonomous Vehicle Project | Computer vision | Generative AI",
       image: "/images/fatima.png",
       linkedin: "https://www.linkedin.com/in/fatimasaud",
-    },
-    {
-      name: "Inzamam Khan",
-      role: "Research & Development Engineer | Data scientist| Embedded AI Hardware & Development | Embedded Systems | Robotic SW Development & Integration | OT | Machine Learning & Computer Vision | IoT | Electronics | HW Design",
-      image: "/images/inz.png",
-      linkedin: "https://www.linkedin.com/in/inzamamkhan",
     },
     {
       name: "Aleema Saleem",

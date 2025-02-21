@@ -108,7 +108,7 @@ const Services = () => {
       <motion.div
         animate={{ y: [-5, 5] }}
         transition={{ duration: 3, repeat: Infinity, repeatType: "mirror" }}
-        className="absolute bottom-8 left-8 right-8 bg-white/5 backdrop-blur-sm p-6 rounded-xl border border-white/10"
+        className="absolute bottom-8 left-8 right-8 bg-white/5 backdrop-   blur-sm p-6 rounded-xl border border-white/10"
       >
         <h3 className="text-xl font-bold text-white mb-2">Live Perception Visualization</h3>
         <p className="text-gray-300">
