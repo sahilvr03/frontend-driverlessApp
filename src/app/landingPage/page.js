@@ -14,20 +14,24 @@ import Achievements from "../components/landingpage/achievement";
 
 const Landingpage = () => {
   return (
-    <div className="bg-gray-100">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-white via-slate-50 to-blue-50">
       {/* Hero Section */}
-   
+       <div
+        className="inset-0 opacity-40"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h60v60H0z' fill='none'/%3E%3Cpath d='M0 0h60v1H0zM0 0h1v60H0z' fill='%23000000' fill-opacity='0.05'/%3E%3C/svg%3E")`,
+          backgroundRepeat: "repeat",
+        }}
+      ></div> 
       <Section/>
 
-      {/* Features Section */}
-      
       {/* Technologies Section */}
       <Technologies />
       <Gallery/>
       <Features />
       {/* About Us Section */}
       <Demo/>
-      <Achievements/>
+    
       {/* <Gallery/> */}
       <AboutUs />
       <Contactus/>

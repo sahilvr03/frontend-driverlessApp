@@ -1,183 +1,193 @@
 "use client";
-
-import { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer'; // Importing the hook
+import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const Section = () => {
-  const STATS = [
-    { label: 'Speed', value: '60 mph' },
-    { label: 'Battery', value: '89%' },
-    { label: 'Range', value: '328 mi' }
-  ];
-
-  const { ref, inView } = useInView({
-    triggerOnce: true,  // Only trigger once when in view
-    threshold: 0.5,  // Only trigger when 50% of the section is visible
-  });
+  const [isVisible, setIsVisible] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    if (inView) {
-      const script = document.createElement('script');
-      script.src = "https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js";
-      script.onload = () => {
-        window.particlesJS('particles-container', {
-          particles: {
-            number: { value: 120, density: { enable: true, value_area: 1200 } },
-            color: { value: "#00ff9d" },
-            shape: { type: "circle" },
-            opacity: { value: 0.6, random: true },
-            size: { value: 2.5, random: { enable: true, minimumValue: 1 } },
-            line_linked: {
-              enable: true,
-              distance: 140,
-              color: "#00ff9d",
-              opacity: 0.4,
-              width: 1
-            },
-            move: {
-              enable: true,
-              speed: 12,
-              direction: "none",
-              random: true,
-              straight: false,
-              out_mode: "out",
-              bounce: false,
-            }
-          },
-          interactivity: {
-            detect_on: "window",
-            events: {
-              onhover: { enable: true, mode: "repulse" },
-              resize: true
-            },
-            modes: {
-              repulse: { distance: 100, duration: 0.4 },
-              push: { particles_nb: 9 }
-            }
-          },
-          retina_detect: true
-        });
-      };
-      document.body.appendChild(script);
+    setIsVisible(true);
+    
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e;
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      
+      // Calculate offset from center (max 20px movement)
+      const moveX = (clientX - centerX) * 0.02;
+      const moveY = (clientY - centerY) * 0.02;
+      
+      setMousePosition({ x: moveX, y: moveY });
+    };
 
-      return () => document.body.removeChild(script);
-    }
-  }, [inView]);  // Trigger the effect when the section comes into view
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   return (
-    <div ref={ref} className="relative min-h-screen bg-black overflow-hidden">
+    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50">
+      
+      {/* Animated Background NCAI Text */}
       <div 
-        id="particles-container" 
-        className="absolute inset-0 bg-black"
-        style={{ zIndex: 1 }}
-      />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-24 h-screen flex flex-col lg:flex-row items-center justify-between gap-8">
-        <motion.div 
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1 }}
-          className="w-full lg:w-1/2 space-y-8 relative"
-          style={{ pointerEvents: 'auto' }}
-        >
-          <div className="relative">
-            <div className="absolute -top-4 -left-4 w-24 h-24 bg-[#00ff9d] rounded-full blur-3xl opacity-20" />
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              <span className="block mb-4">AUTONOMOUS</span>
-              <span className="text-[#00ff9d] neon-pulse relative inline-block">
-                DRIVE SYSTEM
-                <span className="absolute -bottom-2 left-0 w-full h-1 bg-[#00ff9d] blur-md opacity-50" />
-              </span>
-            </h1>
-            
-            <p className="text-xl text-gray-300 max-w-2xl leading-relaxed">
-              Next-generation autonomous driving platform powered by AI and advanced sensor fusion.
-              Experience unparalleled safety and performance with our neural network-driven technology.
-            </p>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="w-full lg:w-1/2 relative"
-          style={{ pointerEvents: 'auto' }}
-        >
-          <div className="relative max-h-[200px] h-[200px] md:h-[400px] w-full md:max-h-[400px] rounded-2xl bg-gradient-to-br from-gray-900 via-black to-gray-900 p-1.5 shadow-2xl">
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#00ff9d]/30 to-[#00ff9d]/5 blur-xl" />
-            <div className="relative h-full w-full overflow-hidden rounded-xl">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="h-full w-full object-cover scale-105"
-              >
-                <source src="/videos/repo1.mp4" type="video/mp4" />
-              </video>
-              
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1 }}
-                className="absolute bottom-6 left-6 right-6"
-              >
-                <div className="mb-4 flex items-center gap-4">
-                  <div className="h-3 w-3 animate-pulse rounded-full bg-[#00ff9d] shadow-glow" />
-                  <span className="text-sm text-[#00ff9d] font-medium tracking-wide">
-                    System Active
-                  </span>
-                </div>
-                <div className="grid grid-cols-3  md:grid-cols-3 gap-4">
-                  {STATS.map((stat, index) => (
-                    <motion.div
-                      key={stat.label}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
-                    >
-                      <div className="rounded-xl bg-black/40 p-1 md:p-4 backdrop-blur-sm border border-[#00ff9d]/20 hover:border-[#00ff9d]/40 transition-all duration-300">
-                        <p className="text-xs text-[#00ff9d]/80 mb-1">{stat.label}</p>
-                        <p className="text-xs md:text-xl font-bold text-white">{stat.value}</p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
+        className="absolute inset-0 flex items-center justify-center pointer-events-none "
+        style={{
+          transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
+          transition: 'transform 0.1s ease-out'
+        }}
+      >
+        <span className="text-[9rem] sm:text-[15rem] md:text-[25rem] lg:text-[35rem] xl:text-[45rem] font-extrabold text-blue-200 select-none animate-pulse-slow ">
+          NCAI
+        </span>
       </div>
 
-      <div className="absolute top-1/2 -right-32 w-[800px] h-[800px] bg-[#00ff9d] rounded-full opacity-5 blur-[100px]" />
+      {/* Floating Particles Effect */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-blue-400/20 rounded-full animate-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${10 + Math.random() * 10}s`
+            }}
+          />
+        ))}
+      </div>
 
+      {/* Main Content */}
+      <div className="relative z-10 container mx-auto  px-4 sm:px-6 lg:px-12 min-h-screen flex items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center w-full">
+
+          {/* Left Text - Mobile Optimized */}
+          <div
+            className={`transform transition-all duration-1000 text-center lg:text-left ${
+              isVisible
+                ? "translate-x-0 opacity-100"
+                : "-translate-x-20 opacity-0"
+            }`}
+          >
+            {/* Heading - Responsive Text Sizes */}
+            <h1 className="text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold   sm:mb-6 leading-tight">
+              <span className="text-slate-900">Autonomous</span>
+              <br />
+              <span className="bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent inline-block animate-gradient">
+                Drive System
+              </span>
+            </h1>
+
+            {/* Description - Adjusted for mobile */}
+            <p className="text-base sm:text-lg md:text-xl text-slate-700 mb-6 sm:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed px-2 sm:px-0">
+              A next-generation autonomous driving platform powered by AI and
+              advanced sensor fusion for unmatched safety and performance.
+            </p>
+
+            {/* CTA Buttons - Stack on mobile */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12 justify-center lg:justify-start px-4 sm:px-0">
+              <button className="px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-red-600 text-white font-semibold transition-all duration-300 hover:bg-blue-700 hover:shadow-lg hover:scale-105 active:scale-95">
+                Get Started
+              </button>
+              <button className="px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-white text-slate-800 font-semibold border border-slate-300 hover:bg-slate-100 transition-all duration-300 hover:scale-105 active:scale-95">
+                Watch Demo
+              </button>
+            </div>
+
+            {/* Stats - Responsive grid */}
+            <div className="flex flex-wrap gap-6 sm:gap-10 justify-center lg:justify-start">
+              <div className="text-center sm:text-left">
+                <div className="text-2xl sm:text-3xl font-bold text-red-900">99.9%</div>
+                <div className="text-xs sm:text-sm text-slate-500">Safety Rating</div>
+              </div>
+
+              <div className="text-center sm:text-left">
+                <div className="text-2xl sm:text-3xl font-bold text-red-900">24/7</div>
+                <div className="text-xs sm:text-sm text-slate-500">AI Monitoring</div>
+              </div>
+
+              <div className="text-center sm:text-left">
+                <div className="text-2xl sm:text-3xl font-bold text-red-900">Zero</div>
+                <div className="text-xs sm:text-sm text-slate-500">Emissions</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side - Mobile Optimized */}
+          <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] flex items-center justify-center overflow-hidden order-first lg:order-last mt-10">
+            <div className="relative w-full h-full animate-float-slow">
+              <Image
+                src="/car3d.png"
+                alt="3D Autonomous Car"
+                width={600}
+                height={600}
+                className="object-contain w-full h-full p-4 sm:p-6 mix-blend-multiply hover:scale-105 transition-transform duration-500"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll Indicator - Hidden on very small screens */}
+      <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden sm:block">
+        <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-slate-400 rounded-full flex justify-center">
+          <div className="w-1 h-1.5 sm:h-2 bg-slate-500 rounded-full mt-2 animate-scroll"></div>
+        </div>
+      </div>
+
+      {/* Global Styles for Animations */}
       <style jsx global>{`
-        #particles-container {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
+        @keyframes scroll {
+          0% { transform: translateY(0); opacity: 1; }
+          100% { transform: translateY(15px); opacity: 0; }
         }
 
-        .neon-pulse {
-          animation: neonPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        @keyframes float {
+          0%, 100% { transform: translateY(0) translateX(0); }
+          25% { transform: translateY(-20px) translateX(10px); }
+          50% { transform: translateY(-10px) translateX(-10px); }
+          75% { transform: translateY(-30px) translateX(5px); }
         }
 
-        .shadow-glow {
-          filter: drop-shadow(0 0 6px #00ff9d);
+        @keyframes float-slow {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(2deg); }
         }
 
-        @keyframes neonPulse {
-          0%, 100% { text-shadow: 0 0 10px #00ff9d55; }
-          50% { text-shadow: 0 0 20px #00ff9d, 0 0 30px #00ff9d; }
+        @keyframes pulse-slow {
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 0.5; }
+        }
+
+        @keyframes gradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        .animate-scroll {
+          animation: scroll 2s ease-in-out infinite;
+        }
+
+        .animate-float {
+          animation: float linear infinite;
+        }
+
+        .animate-float-slow {
+          animation: float-slow 6s ease-in-out infinite;
+        }
+
+        .animate-pulse-slow {
+          animation: pulse-slow 4s ease-in-out infinite;
+        }
+
+        .animate-gradient {
+          background-size: 200% 200%;
+          animation: gradient 3s ease infinite;
         }
       `}</style>
-    </div>
+    </section>
   );
 };
 

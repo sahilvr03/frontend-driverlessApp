@@ -9,11 +9,11 @@ import { faBadgeCheck, faShieldHalved, faMicrochip, faChartColumn,faVialVirus,fa
 
 const Technologies = () => {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-16 items-center mb-24">
           <div className="space-y-8">
-            <h2 className="text-5xl font-bold bg-gradient-to-r from-green-600 to-cyan-500 bg-clip-text text-transparent">
+            <h2 className="text-5xl font-bold bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">
               Redefining Mobility with Autonomous Innovation
             </h2>
             <p className="text-xl text-gray-600">
@@ -34,7 +34,7 @@ const Technologies = () => {
                 <span className="text-lg font-semibold text-gray-800">Deep Learning Navigation</span>
               </div>
             </div>
-            <button className="bg-green-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+            <button className="bg-red-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-red-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
               Schedule a Demo →
             </button>
           </div>

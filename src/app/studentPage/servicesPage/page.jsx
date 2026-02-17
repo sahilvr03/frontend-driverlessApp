@@ -8,9 +8,9 @@ import Link from 'next/link';
 
 export default function Services() {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-6 md:px-16">
-      <h1 className="text-5xl font-bold text-gray-900 mb-12 text-center">Our Professional Services</h1>
-      <p className="text-lg text-gray-700 mb-16 text-center max-w-3xl">
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-6 md:px-16 mt-20">
+      <h1 className="text-5xl font-bold text-red-600 mb-12 text-center">Our Professional Services</h1>
+      <p className="text-lg text-red-800 mb-16 text-center max-w-3xl">
         At Data Solutions, we offer a comprehensive suite of data services tailored to meet your unique business needs. From data annotation to raw data provisioning, our experts are here to help you transform your data into actionable insights.
       </p>
 
